@@ -11,6 +11,10 @@
 		030B852C293A8B6B00661674 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B852B293A8B6B00661674 /* ContentView.swift */; };
 		030B852E293A8B7000661674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B852D293A8B7000661674 /* Assets.xcassets */; };
 		030B8531293A8B7000661674 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B8530293A8B7000661674 /* Preview Assets.xcassets */; };
+		0333D3A4293C0660009CC6E1 /* REDAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3A3293C0660009CC6E1 /* REDAppModel.swift */; };
+		0333D3A7293C0A0C009CC6E1 /* FloatingTabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 0333D3A6293C0A0C009CC6E1 /* FloatingTabBar */; };
+		0333D3A9293C16E8009CC6E1 /* NotificationsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3A8293C16E8009CC6E1 /* NotificationsRequest.swift */; };
+		0333D3AB293C16FB009CC6E1 /* RedactedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3AA293C16FB009CC6E1 /* RedactedAPI.swift */; };
 		03F9AC44293AB51800D32548 /* UserProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC43293AB51800D32548 /* UserProfileRequest.swift */; };
 		03F9AC48293AD44B00D32548 /* PersonalProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC47293AD44B00D32548 /* PersonalProfileRequest.swift */; };
 		03F9AC4A293AE18D00D32548 /* AnnouncementsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC49293AE18D00D32548 /* AnnouncementsRequest.swift */; };
@@ -22,6 +26,9 @@
 		030B852B293A8B6B00661674 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		030B852D293A8B7000661674 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		030B8530293A8B7000661674 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0333D3A3293C0660009CC6E1 /* REDAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REDAppModel.swift; sourceTree = "<group>"; };
+		0333D3A8293C16E8009CC6E1 /* NotificationsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRequest.swift; sourceTree = "<group>"; };
+		0333D3AA293C16FB009CC6E1 /* RedactedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedAPI.swift; sourceTree = "<group>"; };
 		03F9AC43293AB51800D32548 /* UserProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRequest.swift; sourceTree = "<group>"; };
 		03F9AC47293AD44B00D32548 /* PersonalProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalProfileRequest.swift; sourceTree = "<group>"; };
 		03F9AC49293AE18D00D32548 /* AnnouncementsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementsRequest.swift; sourceTree = "<group>"; };
@@ -32,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0333D3A7293C0A0C009CC6E1 /* FloatingTabBar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +67,7 @@
 			children = (
 				03F9AC42293AB44300D32548 /* API */,
 				030B8529293A8B6B00661674 /* REDSwiftApp.swift */,
+				0333D3A3293C0660009CC6E1 /* REDAppModel.swift */,
 				030B852B293A8B6B00661674 /* ContentView.swift */,
 				030B852D293A8B7000661674 /* Assets.xcassets */,
 				030B852F293A8B7000661674 /* Preview Content */,
@@ -80,6 +89,8 @@
 				03F9AC43293AB51800D32548 /* UserProfileRequest.swift */,
 				03F9AC47293AD44B00D32548 /* PersonalProfileRequest.swift */,
 				03F9AC49293AE18D00D32548 /* AnnouncementsRequest.swift */,
+				0333D3A8293C16E8009CC6E1 /* NotificationsRequest.swift */,
+				0333D3AA293C16FB009CC6E1 /* RedactedAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -100,6 +111,9 @@
 			dependencies = (
 			);
 			name = REDSwift;
+			packageProductDependencies = (
+				0333D3A6293C0A0C009CC6E1 /* FloatingTabBar */,
+			);
 			productName = REDSwift;
 			productReference = 030B8526293A8B6B00661674 /* REDSwift.app */;
 			productType = "com.apple.product-type.application";
@@ -128,6 +142,9 @@
 				Base,
 			);
 			mainGroup = 030B851D293A8B6B00661674;
+			packageReferences = (
+				0333D3A5293C0A0C009CC6E1 /* XCRemoteSwiftPackageReference "FloatingTabBar" */,
+			);
 			productRefGroup = 030B8527293A8B6B00661674 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -156,7 +173,10 @@
 			files = (
 				03F9AC44293AB51800D32548 /* UserProfileRequest.swift in Sources */,
 				03F9AC48293AD44B00D32548 /* PersonalProfileRequest.swift in Sources */,
+				0333D3AB293C16FB009CC6E1 /* RedactedAPI.swift in Sources */,
+				0333D3A9293C16E8009CC6E1 /* NotificationsRequest.swift in Sources */,
 				030B852C293A8B6B00661674 /* ContentView.swift in Sources */,
+				0333D3A4293C0660009CC6E1 /* REDAppModel.swift in Sources */,
 				03F9AC4A293AE18D00D32548 /* AnnouncementsRequest.swift in Sources */,
 				030B852A293A8B6B00661674 /* REDSwiftApp.swift in Sources */,
 			);
@@ -365,6 +385,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0333D3A5293C0A0C009CC6E1 /* XCRemoteSwiftPackageReference "FloatingTabBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/claudiaeng/FloatingTabBar";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0333D3A6293C0A0C009CC6E1 /* FloatingTabBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0333D3A5293C0A0C009CC6E1 /* XCRemoteSwiftPackageReference "FloatingTabBar" */;
+			productName = FloatingTabBar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 030B851E293A8B6B00661674 /* Project object */;
 }

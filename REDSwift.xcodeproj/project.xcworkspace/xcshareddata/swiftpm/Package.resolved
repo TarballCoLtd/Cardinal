@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "floatingtabbar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/claudiaeng/FloatingTabBar",
+      "state" : {
+        "branch" : "master",
+        "revision" : "0e511c36a37c9e64fb44bcfd4f7ad0a5c0a9ebc9"
+      }
+    }
+  ],
+  "version" : 2
+}
