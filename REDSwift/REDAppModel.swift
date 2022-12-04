@@ -8,5 +8,23 @@
 import Foundation
 
 class REDAppModel: ObservableObject {
-    
+    var api: RedactedAPI?
+    var personalProfile: PersonalProfile?
+    var announcements: [Announcement]?
+    var notifications: Notifications?
+    init(_ apiKey: String) {
+        api = RedactedAPI(apiKey)
+        personalProfile = nil
+        announcements = nil
+        notifications = nil
+    }
+    init() {
+        api = nil
+        personalProfile = nil
+        announcements = nil
+        notifications = nil
+        #if DEBUG
+        api = RedactedAPI("3647f30f.64d21b5659bdc5fed8ee1ebc658b65b6")
+        #endif
+    }
 }

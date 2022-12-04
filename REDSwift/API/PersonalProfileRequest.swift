@@ -33,7 +33,7 @@ extension RedactedAPI {
         var authkey: String
         var passkey: String
         var api_version: String
-        var notifications: RedactedNotifications
+        var notifications: RedactedNotifications_PersonalProfile
         var userstats: RedactedUserStats_PersonalProfile
     }
 
@@ -45,33 +45,33 @@ extension RedactedAPI {
         // var class: String
     }
 
-    internal struct RedactedNotifications: Codable {
+    internal struct RedactedNotifications_PersonalProfile: Codable {
         var messages: Int
         var notifications: Int
         var newAnnouncement: Bool
         var newBlog: Bool
         var newSubscriptions: Bool // TODO: add this to redacted wiki once promoted to elite
     }
+}
 
-    public class PersonalProfile: Profile {
-        public let authKey: String
-        public let passkey: String
-        public let apiVersion: String
-        public let messages: Int
-        public let notifications: Int
-        public let newAnnouncement: Bool
-        public let newBlog: Bool
-        public let newSubscriptions: Bool
-        internal init(profile: RedactedPersonalProfile, requestJson: [String: Any]?) {
-            authKey = profile.response.authkey
-            passkey = profile.response.passkey
-            apiVersion = profile.response.api_version
-            messages = profile.response.notifications.messages
-            notifications = profile.response.notifications.notifications
-            newAnnouncement = profile.response.notifications.newAnnouncement
-            newBlog = profile.response.notifications.newBlog
-            newSubscriptions = profile.response.notifications.newSubscriptions
-            super.init(profile.status == "success", profile.response.username, profile.response.id, profile.response.userstats.uploaded, profile.response.userstats.downloaded, profile.response.userstats.ratio, profile.response.userstats.requiredratio, "", requestJson)
-        }
+public class PersonalProfile: Profile {
+    public let authKey: String
+    public let passkey: String
+    public let apiVersion: String
+    public let messages: Int
+    public let notifications: Int
+    public let newAnnouncement: Bool
+    public let newBlog: Bool
+    public let newSubscriptions: Bool
+    internal init(profile: RedactedAPI.RedactedPersonalProfile, requestJson: [String: Any]?) {
+        authKey = profile.response.authkey
+        passkey = profile.response.passkey
+        apiVersion = profile.response.api_version
+        messages = profile.response.notifications.messages
+        notifications = profile.response.notifications.notifications
+        newAnnouncement = profile.response.notifications.newAnnouncement
+        newBlog = profile.response.notifications.newBlog
+        newSubscriptions = profile.response.notifications.newSubscriptions
+        super.init(profile.status == "success", profile.response.username, profile.response.id, profile.response.userstats.uploaded, profile.response.userstats.downloaded, profile.response.userstats.ratio, profile.response.userstats.requiredratio, "", requestJson)
     }
 }

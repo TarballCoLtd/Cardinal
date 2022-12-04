@@ -44,21 +44,21 @@ extension RedactedAPI {
         var body: String
         var newsTime: String
     }
+}
 
-    public class Announcement {
-        public let id: Int
-        public let title: String
-        public let bbBody: String
-        public let body: String
-        public let time: Date?
-        internal init(announcement: RedactedAnnouncement) {
-            id = announcement.newsId
-            title = announcement.title
-            bbBody = announcement.bbBody
-            body = announcement.body
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            time = formatter.date(from: announcement.newsTime)
-        }
+public class Announcement {
+    public let id: Int
+    public let title: String
+    public let bbBody: String
+    public let body: String
+    public let time: Date?
+    internal init(announcement: RedactedAPI.RedactedAnnouncement) {
+        id = announcement.newsId
+        title = announcement.title
+        bbBody = announcement.bbBody
+        body = announcement.body
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        time = formatter.date(from: announcement.newsTime)
     }
 }
