@@ -17,11 +17,11 @@ struct ContentView: View {
         BottomBarItem(icon: "bell", color: .iconColor),
         BottomBarItem(icon: "person", color: .iconColor),
     ]
-    let views: [some View] = [
-        Text("test 1"),
-        Text("test 2"),
-        Text("test 3"),
-        Text("test 4"),
+    let views: [AnyView] = [
+        AnyView(Text("test 1")),
+        AnyView(Text("test 2")),
+        AnyView(Text("test 3")),
+        AnyView(PersonalProfileView()),
     ]
     var body: some View {
         ZStack {
@@ -29,10 +29,11 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 BottomBar(selectedIndex: $viewIndex, items: items)
+                    .ignoresSafeArea(.all, edges: .bottom)
                     .cornerRadius(20)
                     .shadow(radius: 10)
-                    .padding(.horizontal, 80)
-                    .padding(.bottom, -10)
+                    .frame(maxWidth: 200)
+                    .padding(.vertical, 10)
             }
         }
     }

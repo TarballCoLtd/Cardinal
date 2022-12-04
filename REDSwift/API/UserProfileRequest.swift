@@ -74,7 +74,7 @@ extension RedactedAPI {
     }
 
     internal struct RedactedUserPersonalInfo: Codable {
-        // var class: String
+        var `class`: String
         var paranoia: Int
         var paranoiaText: String
         var donor: Bool
@@ -97,47 +97,6 @@ extension RedactedAPI {
         var leeching: Int?
         var snatched: Int?
         var invited: Int?
-    }
-}
-
-public enum UserClass {
-    case user
-    case member
-    case powerUser
-    case elite
-    case torrentMaster
-    case powerTorrentMaster
-    case eliteTorrentMaster
-    case vip
-    case staff
-    case other
-    static func getUserClass(userClass: String) -> Self {
-        switch userClass {
-        case "User":
-            return .user
-        case "Member":
-            return .member
-        case "Power User":
-            return .powerUser
-        case "Elite":
-            return .elite
-        case "Torrent Master":
-            return .torrentMaster
-        case "Power TM":
-            return .powerTorrentMaster
-        case "Elite TM":
-            return .eliteTorrentMaster
-        case "VIP":
-            return .vip
-        case "Forum Moderator":
-            return .staff
-        case "Moderator":
-            return .staff
-        case "Administrator":
-            return .staff
-        default:
-            return .other
-        }
     }
 }
 
@@ -237,6 +196,6 @@ public class UserProfile: Profile {
         leeching = profile.response.community.leeching
         snatched = profile.response.community.snatched
         invited = profile.response.community.invited
-        super.init(profile.status == "success", profile.response.username, id, profile.response.stats.uploaded, profile.response.stats.downloaded, profile.response.stats.ratio, profile.response.stats.requiredRatio, "", requestJson)
+        super.init(profile.status == "success", profile.response.username, id, profile.response.stats.uploaded, profile.response.stats.downloaded, profile.response.stats.ratio, profile.response.stats.requiredRatio, profile.response.personal.class, requestJson)
     }
 }

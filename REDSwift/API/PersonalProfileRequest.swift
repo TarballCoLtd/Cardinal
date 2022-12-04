@@ -42,7 +42,7 @@ extension RedactedAPI {
         var downloaded: Int
         var ratio: Float
         var requiredratio: Float
-        // var class: String
+        var `class`: String
     }
 
     internal struct RedactedNotifications_PersonalProfile: Codable {
@@ -72,6 +72,6 @@ public class PersonalProfile: Profile {
         newAnnouncement = profile.response.notifications.newAnnouncement
         newBlog = profile.response.notifications.newBlog
         newSubscriptions = profile.response.notifications.newSubscriptions
-        super.init(profile.status == "success", profile.response.username, profile.response.id, profile.response.userstats.uploaded, profile.response.userstats.downloaded, profile.response.userstats.ratio, profile.response.userstats.requiredratio, "", requestJson)
+        super.init(profile.status == "success", profile.response.username, profile.response.id, profile.response.userstats.uploaded, profile.response.userstats.downloaded, profile.response.userstats.ratio, profile.response.userstats.requiredratio, profile.response.userstats.class, requestJson)
     }
 }
