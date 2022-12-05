@@ -18,14 +18,39 @@ struct UserRanks: View {
                     Text(String(model.personalProfile!.uploadedRank!))
                 }
                 HStack {
-                    Text("Downloaded")
+                    Text("Downloaded:")
                     Spacer()
                     Text(String(model.personalProfile!.downloadedRank!))
                 }
                 HStack {
-                    Text("Uploads")
+                    Text("Uploads:")
                     Spacer()
                     Text(String(model.personalProfile!.uploadsRank!))
+                }
+                HStack {
+                    Text("Requests:")
+                    Spacer()
+                    Text(String(model.personalProfile!.requestsRank!))
+                }
+                HStack {
+                    Text("Bounty:")
+                    Spacer()
+                    Text(String(model.personalProfile!.bountyRank!))
+                }
+                HStack {
+                    Text("Posts:")
+                    Spacer()
+                    Text(String(model.personalProfile!.postsRank!))
+                }
+                HStack {
+                    Text("Artists:")
+                    Spacer()
+                    Text(String(model.personalProfile!.artistsRank!))
+                }
+                HStack {
+                    Text("Overall:")
+                    Spacer()
+                    Text(String(model.personalProfile!.overallRank!))
                 }
             }
         }

@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class REDAppModel: ObservableObject {
     @Published var api: RedactedAPI?
     @Published var personalProfile: UserProfile?
     @Published var announcements: [Announcement]?
     @Published var notifications: Notifications?
+    @Published var pfp: Image?
     init(_ apiKey: String) {
         api = RedactedAPI(apiKey)
         personalProfile = nil

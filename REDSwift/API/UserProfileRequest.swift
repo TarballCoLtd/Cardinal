@@ -84,13 +84,20 @@ extension RedactedAPI {
     }
 
     internal struct RedactedUserCommunityInfo: Codable {
+        var artistComments: Int?
+        var artistsAdded: Int?
+        var bountyEarned: Int?
+        var bountySpent: Int?
         var posts: Int?
         var torrentComments: Int?
+        var collageComments: Int?
         var collagesStarted: Int?
         var collagesContrib: Int?
+        var groupVotes: Int?
         var requestsFilled: Int?
         var requestsVoted: Int?
         var perfectFlacs: Int?
+        var requestComments: Int?
         var uploaded: Int?
         var groups: Int?
         var seeding: Int?
@@ -157,6 +164,13 @@ public class UserProfile: Profile {
     public let leeching: Int?
     public let snatched: Int?
     public let invited: Int?
+    public let artistComments: Int?
+    public let artistsAdded: Int?
+    public let bountyEarned: Int?
+    public let bountySpent: Int?
+    public let collageComments: Int?
+    public let groupVotes: Int?
+    public let requestComments: Int?
     internal init(profile: RedactedAPI.RedactedUserProfile, id: Int, requestJson: [String: Any]?) { // implement grabbing the user class
         avatar = profile.response.avatar
         isFriend = profile.response.isFriend
@@ -196,6 +210,13 @@ public class UserProfile: Profile {
         leeching = profile.response.community.leeching
         snatched = profile.response.community.snatched
         invited = profile.response.community.invited
+        artistComments = profile.response.community.artistComments
+        artistsAdded = profile.response.community.artistsAdded
+        bountyEarned = profile.response.community.bountyEarned
+        bountySpent = profile.response.community.bountySpent
+        collageComments = profile.response.community.collageComments
+        groupVotes = profile.response.community.groupVotes
+        requestComments = profile.response.community.requestComments
         super.init(profile.status == "success", profile.response.username, id, profile.response.stats.uploaded, profile.response.stats.downloaded, profile.response.stats.ratio, profile.response.stats.requiredRatio, profile.response.personal.class, requestJson)
     }
 }

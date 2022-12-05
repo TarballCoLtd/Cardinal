@@ -28,18 +28,51 @@ struct PersonalProfileView: View {
                     Divider()
                 }
                 .padding(.horizontal, 20)
-                SectionTitle("Stats") {
+                HStack {
+                    Spacer()
+                    if let pfp = model.pfp {
+                        pfp
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 100)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .padding(.top, 10)
+                        
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .frame(maxWidth: 50)
+                    }
+                    Spacer()
+                }
+                /*
+                SectionTitle(model.personalProfile!.profileText, .red, shouldUppercase: false) {
+                    Divider()
+                }
+                 */
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                SectionTitle("Statistics") {
                     UserStats()
                 }
                 .padding(10)
-                SectionTitle("Ranks (Percentile)") {
+                SectionTitle("Percentile Rankings") {
                     UserRanks()
+                }
+                .padding(10)
+                SectionTitle("Personal") {
+                    UserPersonal()
+                }
+                .padding(10)
+                SectionTitle("Community") {
+                    UserCommunity()
                 }
                 .padding(10)
                 Spacer()
             } onRefresh: {
                 let profile = try! await model.api!.requestPersonalProfile()
                 model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
+                model.pfp = try! await model.api!.requestProfilePicture(model.personalProfile!.avatar)
             }
         } else if model.api != nil {
             VStack {
@@ -52,9 +85,12 @@ struct PersonalProfileView: View {
                 }
                 Spacer()
             }
-            .task {
-                let profile = try! await model.api!.requestPersonalProfile()
-                model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
+            .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
+                Task {
+                    let profile = try! await model.api!.requestPersonalProfile()
+                    model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
+                    model.pfp = try! await model.api!.requestProfilePicture(model.personalProfile!.avatar)
+                }
             }
         } else {
             VStack {

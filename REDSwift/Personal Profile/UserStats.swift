@@ -39,7 +39,7 @@ struct UserStats: View {
                 HStack {
                     Text("Ratio:")
                     Spacer()
-                    Text(String(format: "%.2f", model.personalProfile!.ratio! - 0.01)) // for some reason the API rounds up, and the RED UI rounds down
+                    Text(String(format: "%.2f", model.personalProfile!.ratio!))
                 }
                 HStack {
                     Text("Required Ratio:")
