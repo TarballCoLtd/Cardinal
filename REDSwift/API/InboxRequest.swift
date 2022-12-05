@@ -9,7 +9,7 @@ import Foundation
 
 extension RedactedAPI {
     public func requestInbox(page: Int, type: Mailbox) async throws -> Inbox {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=inbox&page=\(page)&type=\(type.description)") else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=inbox&page=\(page)&type=\(type.description)&sort=unread") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -23,7 +23,7 @@ extension RedactedAPI {
     }
     
     public func requestInbox(page: Int, type: Mailbox, search: String, searchType: SearchType) async throws -> Inbox {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=inbox&page=\(page)&type=\(type.description)&search=\(search)&searchtype=\(searchType.description)") else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=inbox&page=\(page)&type=\(type.description)&sort=unread&search=\(search)&searchtype=\(searchType.description)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -87,7 +87,8 @@ public enum SearchType: CustomStringConvertible {
     }
 }
 
-public class InboxMessage {
+public class InboxConversation: Identifiable, ObservableObject {
+    public let id = UUID()
     public let conversationId: Int
     public let subject: String
     public let unread: Bool
@@ -119,6 +120,7 @@ public class InboxMessage {
 public class Inbox {
     public let currentPage: Int
     public let pages: Int
+    public let conversations: [InboxConversation]
     public let successful: Bool
     public let requestJson: [String: Any]?
     internal init(inbox: RedactedAPI.RedactedInbox, requestJson: [String: Any]?) {
@@ -126,5 +128,11 @@ public class Inbox {
         pages = inbox.response.pages
         successful = inbox.status == "success"
         self.requestJson = requestJson
+        
+        var conversations: [InboxConversation] = []
+        for conversation in inbox.response.messages {
+            conversations.append(InboxConversation(conversation))
+        }
+        self.conversations = conversations
     }
 }

@@ -25,17 +25,23 @@ struct ContentView: View {
                     .onAppear {
                         tabBarItems[0] = BottomBarItem(icon: "house.fill", color: .iconColor)
                         tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
-                        tabBarItems[2] = BottomBarItem(icon: "envelope", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: model.unreadConversations ? "envelope.badge" : "envelope", color: .iconColor)
                         tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
                     }
             case 1:
                 Text("test 2") // magnifying glass isn't fillable
-            case 2:
-                Text("test 3")
                     .onAppear {
                         tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
                         tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
-                        tabBarItems[2] = BottomBarItem(icon: "envelope.fill", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: model.unreadConversations ? "envelope.badge" : "envelope", color: .iconColor)
+                        tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
+                    }
+            case 2:
+                InboxView()
+                    .onAppear {
+                        tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
+                        tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: model.unreadConversations ? "envelope.badge.fill" : "envelope.fill", color: .iconColor)
                         tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
                     }
             case 3:
@@ -43,7 +49,7 @@ struct ContentView: View {
                     .onAppear {
                         tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
                         tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
-                        tabBarItems[2] = BottomBarItem(icon: "envelope", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: model.unreadConversations ? "envelope.badge" : "envelope", color: .iconColor)
                         tabBarItems[3] = BottomBarItem(icon: "person.fill", color: .iconColor)
                     }
             default:

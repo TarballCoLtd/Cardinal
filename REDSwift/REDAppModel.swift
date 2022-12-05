@@ -14,18 +14,16 @@ class REDAppModel: ObservableObject {
     @Published var personalProfile: UserProfile?
     @Published var announcements: [Announcement]?
     @Published var notifications: Notifications?
+    @Published var inbox: Inbox?
     @Published var pfp: Image?
+    @Published var conversations: [Int: Conversation] = [:]
+    @Published var fetchingConversations: Bool = false
+    @Published var fetchingPersonalProfile: Bool = false
+    @Published var unreadConversations: Bool = false
     init(_ apiKey: String) {
         api = RedactedAPI(apiKey)
-        personalProfile = nil
-        announcements = nil
-        notifications = nil
     }
     init() {
-        api = nil
-        personalProfile = nil
-        announcements = nil
-        notifications = nil
         #if DEBUG
         api = RedactedAPI("3647f30f.64d21b5659bdc5fed8ee1ebc658b65b6")
         #endif
