@@ -2,87 +2,46 @@
 //  MessageView.swift
 //  REDSwift
 //
-//  Created by Tarball on 12/4/22.
+//  Created by Tarball on 12/5/22.
 //
 
 import SwiftUI
-import WebKit
 
 struct MessageView: View {
-    @State var message: String
-    @State var size: CGSize = .zero
-    
-    init(_ message: String) {
-        self._message = State(initialValue: message)
+    let message: ConversationMessage
+    @State var html: String?
+    init(_ message: ConversationMessage) {
+        self.message = message
+        self.html = nil
     }
-    
     var body: some View {
-        HTMLView(message, size: $size)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, idealHeight: size.height, maxHeight: .infinity)
-    }
-}
-
-struct HTMLView: UIViewRepresentable {
-    let content: String
-    @Binding var size: CGSize
-    private let view = WKWebView()
-    var observer: NSKeyValueObservation?
-    
-    init(_ content: String, size: Binding<CGSize>) {
-        self.content = content
-        self._size = size
-    }
-    
-    func makeUIView(context: Context) -> WKWebView {
-        view.scrollView.isScrollEnabled = false
-        view.navigationDelegate = context.coordinator
-        return view
-    }
-    
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.loadHTMLString(content, baseURL: nil)
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
-    }
-    
-    class Coordinator: NSObject, WKNavigationDelegate {
-        let parent: HTMLView
-        var observer: NSKeyValueObservation?
-        
-        init(parent: HTMLView) {
-            self.parent = parent
-            observer = parent.view.scrollView.observe(\.contentSize, options: [.new], changeHandler: { (object, change) in
-                parent.size = change.newValue ?? .zero
-            })
+        VStack {
+            HStack {
+                Text(message.senderName)
+                    .bold()
+                    .foregroundColor(.red)
+                + Text(":")
+                    .foregroundColor(.gray)
+                Spacer()
+            }
+            if let html = html {
+                HStack {
+                    Text(html)
+                    Spacer()
+                }
+            } else {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .onAppear { // shits itself for some reason unless i do this bullshit (im going insane)
+                        html = message.body.htmlToString()
+                    }
+            }
         }
     }
 }
 
-/*
-extension StringProtocol {
-    func htmlToAttributedString() throws -> AttributedString {
-        try AttributedString(
-            NSAttributedString(
-                data: Data(utf8),
-                options: [
-                    .documentType: NSAttributedString.DocumentType.html,
-                    .characterEncoding: String.Encoding.utf8.rawValue
-                ],
-                documentAttributes: nil
-            )
-        )
+extension String {
+    func htmlToString() -> String {
+        return try! NSAttributedString(data: self.data(using: .utf8)!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil).string
     }
 }
-
-extension Text {
-    init(html: String) {
-        do {
-            try self.init(html.htmlToAttributedString())
-        } catch {
-            self.init("Error rendering HTML text. Report bug to developer.")
-        }
-    }
-}
-*/

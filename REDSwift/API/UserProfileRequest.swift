@@ -74,7 +74,7 @@ extension RedactedAPI {
     }
 
     internal struct RedactedUserPersonalInfo: Codable {
-        var `class`: String
+        var `class`: String // current status: shitting myself
         var paranoia: Int
         var paranoiaText: String
         var donor: Bool

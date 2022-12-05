@@ -16,10 +16,15 @@ struct ConversationView: View {
     var body: some View {
         if let conversation = model.conversations[conversationId] {
             List {
-                Text(conversation.subject)
-                    .bold()
+                SectionTitle("Subject") {
+                    HStack {
+                        Text(conversation.subject)
+                            .bold()
+                        Spacer()
+                    }
+                }
                 ForEach(conversation.messages) { message in
-                    MessageView(message.body)
+                    MessageView(message)
                 }
             }
         } else {

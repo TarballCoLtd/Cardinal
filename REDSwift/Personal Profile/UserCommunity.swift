@@ -12,7 +12,7 @@ struct UserCommunity: View {
     var body: some View {
         RectangleOverlay {
             VStack {
-                Group {
+                Group { // why the hell is there a limit on how many views there can be in a ViewBuilder closure
                     HStack {
                         Text("Forum posts:")
                         Spacer()

@@ -19,7 +19,7 @@ struct ContentView: View {
     ]
     var body: some View {
         ZStack {
-            switch viewIndex {
+            switch viewIndex { // this switch block. that's the joke. (sobbing profusely)
             case 0:
                 Text("test 1")
                     .onAppear {

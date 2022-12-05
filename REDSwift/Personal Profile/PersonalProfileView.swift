@@ -12,7 +12,7 @@ struct PersonalProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         if model.personalProfile != nil {
-            RefreshableScrollView {
+            RefreshableScrollView { // the padding in this makes me :cringeharold:
                 VStack {
                     HStack {
                         Text(model.personalProfile!.username)
@@ -49,9 +49,9 @@ struct PersonalProfileView: View {
                 SectionTitle(model.personalProfile!.profileText, .red, shouldUppercase: false) {
                     Divider()
                 }
-                 */
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
+                 */
                 SectionTitle("Statistics") {
                     UserStats()
                 }
