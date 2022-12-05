@@ -3,10 +3,10 @@
     {
       "identity" : "floatingtabbar",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/claudiaeng/FloatingTabBar",
+      "location" : "https://github.com/alyxferrari/FloatingTabBar",
       "state" : {
         "branch" : "master",
-        "revision" : "0e511c36a37c9e64fb44bcfd4f7ad0a5c0a9ebc9"
+        "revision" : "0611101b731e76062198ce238a020cceacc8f82e"
       }
     },
     {

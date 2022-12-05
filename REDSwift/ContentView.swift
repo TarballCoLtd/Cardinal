@@ -10,34 +10,52 @@ import FloatingTabBar
 
 struct ContentView: View {
     @EnvironmentObject var model: REDAppModel
-    @AppStorage("house") var house: String?
-    @AppStorage("magnifyingglass") var magnifyingGlass: String?
-    @AppStorage("envelope") var envelope: String?
-    @AppStorage("person") var person: String?
-    @State var viewIndex: Int
-    @State var items: [BottomBarItem]
-    @State var views: [AnyView]
-    init() {
-        viewIndex = 0
-        views = [
-            AnyView(Text("test 1")),
-            AnyView(Text("test 2")),
-            AnyView(Text("test 3")),
-            AnyView(PersonalProfileView()),
-        ]
-        items = [
-            BottomBarItem(icon: house ?? "house", color: .iconColor),
-            BottomBarItem(icon: magnifyingGlass ?? "magnifyingglass", color: .iconColor),
-            BottomBarItem(icon: envelope ?? "envelope", color: .iconColor),
-            BottomBarItem(icon: person ?? "person", color: .iconColor),
-        ]
-    }
+    @State var viewIndex: Int = 0
+    @State var tabBarItems: [BottomBarItem] = [
+        BottomBarItem(icon: "house", color: .iconColor),
+        BottomBarItem(icon: "magnifyingglass", color: .iconColor),
+        BottomBarItem(icon: "envelope", color: .iconColor),
+        BottomBarItem(icon: "person", color: .iconColor),
+    ]
     var body: some View {
         ZStack {
-            views[viewIndex]
+            switch viewIndex {
+            case 0:
+                Text("test 1")
+                    .onAppear {
+                        tabBarItems[0] = BottomBarItem(icon: "house.fill", color: .iconColor)
+                        tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: "envelope", color: .iconColor)
+                        tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
+                    }
+            case 1:
+                Text("test 2") // magnifying glass isn't fillable
+            case 2:
+                Text("test 3")
+                    .onAppear {
+                        tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
+                        tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: "envelope.fill", color: .iconColor)
+                        tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
+                    }
+            case 3:
+                PersonalProfileView()
+                    .onAppear {
+                        tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
+                        tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
+                        tabBarItems[2] = BottomBarItem(icon: "envelope", color: .iconColor)
+                        tabBarItems[3] = BottomBarItem(icon: "person.fill", color: .iconColor)
+                    }
+            default:
+                VStack {
+                    Text("You should not be seeing this!")
+                        .font(.title)
+                    Text("Report this bug to the developer.")
+                }
+            }
             VStack {
                 Spacer()
-                BottomBar(selectedIndex: $viewIndex, items: items)
+                BottomBar(selectedIndex: $viewIndex, items: $tabBarItems)
                     .ignoresSafeArea(.all, edges: .bottom)
                     .cornerRadius(20)
                     .shadow(radius: 10)

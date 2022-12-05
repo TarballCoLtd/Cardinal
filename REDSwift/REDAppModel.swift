@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FloatingTabBar
 
 class REDAppModel: ObservableObject {
     @Published var api: RedactedAPI?
