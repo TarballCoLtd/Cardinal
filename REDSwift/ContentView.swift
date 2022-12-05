@@ -29,7 +29,7 @@ struct ContentView: View {
                         tabBarItems[3] = BottomBarItem(icon: "person", color: .iconColor)
                     }
             case 1:
-                Text("test 2") // magnifying glass isn't fillable
+                SearchView() // magnifying glass isn't fillable
                     .onAppear {
                         tabBarItems[0] = BottomBarItem(icon: "house", color: .iconColor)
                         tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)
