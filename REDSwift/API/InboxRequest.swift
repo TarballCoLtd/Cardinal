@@ -22,7 +22,7 @@ extension RedactedAPI {
         return try Inbox(inbox: decoder.decode(RedactedInbox.self, from: data), requestJson: json)
     }
     
-    public func requestInbox(page: Int, type: Mailbox, search: String, searchType: SearchType) async throws -> Inbox {
+    public func requestInbox(page: Int, type: Mailbox, search: String, searchType: InboxSearchType) async throws -> Inbox {
         guard let url = URL(string: "https://redacted.ch/ajax.php?action=inbox&page=\(page)&type=\(type.description)&sort=unread&search=\(search)&searchtype=\(searchType.description)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -74,7 +74,7 @@ public enum Mailbox: CustomStringConvertible {
     }
 }
 
-public enum SearchType: CustomStringConvertible {
+public enum InboxSearchType: CustomStringConvertible {
     case subject
     case message
     case user
