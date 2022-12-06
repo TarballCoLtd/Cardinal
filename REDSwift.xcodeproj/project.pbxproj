@@ -11,6 +11,7 @@
 		030B852C293A8B6B00661674 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030B852B293A8B6B00661674 /* ContentView.swift */; };
 		030B852E293A8B7000661674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B852D293A8B7000661674 /* Assets.xcassets */; };
 		030B8531293A8B7000661674 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B8530293A8B7000661674 /* Preview Assets.xcassets */; };
+		030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1C9A293F9011009894F9 /* TorrentGroupView.swift */; };
 		03256146293E7032000D5636 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03256145293E7031000D5636 /* MessageView.swift */; };
 		03256149293E7FD1000D5636 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03256148293E7FD1000D5636 /* SearchView.swift */; };
 		032E4B69293D778000595C80 /* FloatingTabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 032E4B68293D778000595C80 /* FloatingTabBar */; };
@@ -44,6 +45,7 @@
 		030B852B293A8B6B00661674 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		030B852D293A8B7000661674 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		030B8530293A8B7000661674 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		030F1C9A293F9011009894F9 /* TorrentGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentGroupView.swift; sourceTree = "<group>"; };
 		03256145293E7031000D5636 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		03256148293E7FD1000D5636 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		0333D3A3293C0660009CC6E1 /* REDAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REDAppModel.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				03256148293E7FD1000D5636 /* SearchView.swift */,
 				03B86E0D293EF63C00173971 /* TorrentResultsView.swift */,
+				030F1C9A293F9011009894F9 /* TorrentGroupView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 				0387C9ED293C4C3300864B63 /* PersonalProfileView.swift in Sources */,
 				03256149293E7FD1000D5636 /* SearchView.swift in Sources */,
 				030B852C293A8B6B00661674 /* ContentView.swift in Sources */,
+				030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */,
 				0387CA11293C864500864B63 /* RectangleOverlay.swift in Sources */,
 				0333D3A4293C0660009CC6E1 /* REDAppModel.swift in Sources */,
 				03E4FCB1293D8F8600C7A6B0 /* ConversationRequest.swift in Sources */,

@@ -19,7 +19,7 @@ extension RedactedAPI {
         print(json as Any)
         #endif
         let decoder = JSONDecoder()
-        return try TorrentSearchResult(results: decoder.decode(RedactedTorrentSearchResults.self, from: data), requestJson: json)
+        return try TorrentSearchResult(results: decoder.decode(RedactedTorrentSearchResults.self, from: data), requestJson: json, requestSize: data.count)
     }
     
     internal struct RedactedTorrentSearchResults: Codable {
@@ -34,20 +34,21 @@ extension RedactedAPI {
     }
     
     internal struct RedactedTorrentSearchResultsResponseResults: Codable {
+        var cover: String?
         var groupId: Int
         var groupName: String
-        var artist: String
+        var artist: String?
         var tags: [String]
-        var bookmarked: Bool
-        var vanityHouse: Bool
-        var groupYear: Int
-        var releaseType: String
-        var groupTime: Int
-        var maxSize: Int
-        var totalSnatched: Int
-        var totalSeeders: Int
-        var totalLeechers: Int
-        var torrents: [RedactedTorrentSearchTorrent]
+        var bookmarked: Bool?
+        var vanityHouse: Bool?
+        var groupYear: Int?
+        var releaseType: String?
+        var groupTime: String?
+        var maxSize: Int?
+        var totalSnatched: Int?
+        var totalSeeders: Int?
+        var totalLeechers: Int?
+        var torrents: [RedactedTorrentSearchTorrent]?
     }
     
     internal struct RedactedTorrentSearchTorrent: Codable {
@@ -86,22 +87,25 @@ extension RedactedAPI {
     }
 }
 
-public class TorrentGroup {
+public class TorrentGroup: Identifiable {
+    public let id = UUID()
+    let cover: String?
     let groupId: Int
     let groupName: String
-    let artist: String
+    let artist: String?
     let tags: [String]
-    let bookmarked: Bool
-    let vanityHouse: Bool
-    let groupYear: Int
-    let releaseType: String
-    let groupTime: Int
-    let maxSize: Int
-    let totalSnatched: Int
-    let totalSeeders: Int
-    let totalLeechers: Int
+    let bookmarked: Bool?
+    let vanityHouse: Bool?
+    let groupYear: Int?
+    let releaseType: String?
+    let groupTime: Date?
+    let maxSize: Int?
+    let totalSnatched: Int?
+    let totalSeeders: Int?
+    let totalLeechers: Int?
     let torrents: [Torrent]
     init(_ group: RedactedAPI.RedactedTorrentSearchResultsResponseResults) {
+        cover = group.cover
         groupId = group.groupId
         groupName = group.groupName
         artist = group.artist
@@ -110,14 +114,16 @@ public class TorrentGroup {
         vanityHouse = group.vanityHouse
         groupYear = group.groupYear
         releaseType = group.releaseType
-        groupTime = group.groupTime
+        groupTime = Date(timeIntervalSince1970: Double(group.groupTime ?? "0")!)
         maxSize = group.maxSize
         totalSnatched = group.totalSnatched
         totalSeeders = group.totalSeeders
         totalLeechers = group.totalLeechers
         var temp: [Torrent] = []
-        for torrent in group.torrents {
-            temp.append(Torrent(torrent))
+        if let torrents = group.torrents {
+            for torrent in torrents {
+                temp.append(Torrent(torrent))
+            }
         }
         torrents = temp
     }
@@ -134,7 +140,8 @@ public class Artist {
     }
 }
 
-public class Torrent {
+public class Torrent: Identifiable {
+    public let id = UUID()
     let torrentId: Int
     let editionId: Int
     let artists: [Artist]
@@ -174,7 +181,7 @@ public class Torrent {
         remasterCatalogueNumber = torrent.remasterCatalogueNumber
         remasterTitle = torrent.remasterTitle
         media = torrent.media
-        encoding = torrent.encoding
+        encoding = torrent.encoding == "24bit Lossless" ? "24-bit Lossless" : torrent.encoding
         format = torrent.format
         hasLog = torrent.hasLog
         logScore = torrent.logScore
@@ -202,8 +209,9 @@ public class TorrentSearchResult {
     let pages: Int
     let groups: [TorrentGroup]
     let requestJson: [String: Any]?
+    let requestSize: Int
     let successful: Bool
-    init(results: RedactedAPI.RedactedTorrentSearchResults, requestJson: [String: Any]?) {
+    init(results: RedactedAPI.RedactedTorrentSearchResults, requestJson: [String: Any]?, requestSize: Int) {
         currentPage = results.response.currentPage
         pages = results.response.pages
         var temp: [TorrentGroup] = []
@@ -213,5 +221,6 @@ public class TorrentSearchResult {
         groups = temp
         successful = results.status == "success"
         self.requestJson = requestJson
+        self.requestSize = requestSize
     }
 }

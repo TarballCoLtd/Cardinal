@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @EnvironmentObject var model: REDAppModel
     @State var search: String = ""
+    @State var searching: Bool = false
     @State var selectionString: String = "Torrents"
     @State var searchResults: AnyView?
     let selections: [String] = [
@@ -28,7 +29,18 @@ struct SearchView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal, 15)
-                if let results = searchResults {
+                if searching {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .padding(.horizontal, 2)
+                            Text("Searching...")
+                        }
+                        Spacer()
+                    }
+                } else if let results = searchResults {
                     results
                 }
                 Spacer()
@@ -38,20 +50,21 @@ struct SearchView: View {
         .searchable(text: $search, prompt: "Search")
         .onSubmit(of: .search) {
             Task {
-                print("poo??")
+                searching = true
                 switch selectionString {
                 case selections[0]:
                     let result = try! await model.api!.requestTorrentSearchResults(term: search)
-                    print("sus af")
                     searchResults = AnyView(TorrentResultsView(result))
+                    searching = false
                 case selections[1]:
-                    print("fart")
+                    searching = false
                 case selections[2]:
-                    print("fart")
+                    searching = false
                 case selections[3]:
-                    print("fart")
+                    searching = false
                 default:
                     print("excuse me?")
+                    searching = false
                 }
             }
         }

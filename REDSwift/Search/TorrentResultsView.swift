@@ -13,6 +13,18 @@ struct TorrentResultsView: View {
         self._results = State(initialValue: results)
     }
     var body: some View {
-        Text("yee")
+        List {
+            ForEach(results.groups) { group in
+                if group.torrents.count > 0 {
+                    NavigationLink {
+                        TorrentGroupView(group, requestSize: results.requestSize)
+                    } label: {
+                        Text(group.artist ?? "Unknown Artist")
+                        + Text("\n")
+                        + Text("\(group.groupName) (\(String(group.groupYear ?? -1)))")
+                    }
+                }
+            }
+        }
     }
 }
