@@ -12,6 +12,7 @@
 		030B852E293A8B7000661674 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B852D293A8B7000661674 /* Assets.xcassets */; };
 		030B8531293A8B7000661674 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 030B8530293A8B7000661674 /* Preview Assets.xcassets */; };
 		030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030F1C9A293F9011009894F9 /* TorrentGroupView.swift */; };
+		031978752940DD9D00D21EC1 /* RequestSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031978742940DD9D00D21EC1 /* RequestSearchRequest.swift */; };
 		03256146293E7032000D5636 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03256145293E7031000D5636 /* MessageView.swift */; };
 		03256149293E7FD1000D5636 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03256148293E7FD1000D5636 /* SearchView.swift */; };
 		032E4B69293D778000595C80 /* FloatingTabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 032E4B68293D778000595C80 /* FloatingTabBar */; };
@@ -56,6 +57,7 @@
 		030B852D293A8B7000661674 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		030B8530293A8B7000661674 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		030F1C9A293F9011009894F9 /* TorrentGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentGroupView.swift; sourceTree = "<group>"; };
+		031978742940DD9D00D21EC1 /* RequestSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSearchRequest.swift; sourceTree = "<group>"; };
 		03256145293E7031000D5636 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		03256148293E7FD1000D5636 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		0333D3A3293C0660009CC6E1 /* REDAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REDAppModel.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				03B86E0B293EEFC200173971 /* TorrentSearchRequest.swift */,
 				036CD5292940180C0053701C /* ArtistSearchRequest.swift */,
 				036CD52E294024590053701C /* UserSearchRequest.swift */,
+				031978742940DD9D00D21EC1 /* RequestSearchRequest.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				03F9AC4A293AE18D00D32548 /* AnnouncementsRequest.swift in Sources */,
 				036CD539294038E50053701C /* UserProfileView.swift in Sources */,
 				036CD544294040180053701C /* UserCommunity.swift in Sources */,
+				031978752940DD9D00D21EC1 /* RequestSearchRequest.swift in Sources */,
 				0387CA0B293C5FC300864B63 /* PersonalStats.swift in Sources */,
 				030B852A293A8B6B00661674 /* REDSwiftApp.swift in Sources */,
 				03399C7C293D2128008DB706 /* ProfilePictureRequest.swift in Sources */,

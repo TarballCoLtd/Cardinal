@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @EnvironmentObject var model: REDAppModel
-    @State var search: String = ""
+    //@State var search: String = ""
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -32,7 +32,7 @@ struct InboxView: View {
                     model.unreadConversations = conversation.unread
                 }
             }
-            .searchable(text: $search, prompt: "Search")
+            //.searchable(text: $search, prompt: "Search")
         } else if model.api != nil {
             VStack {
                 Spacer()

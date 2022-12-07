@@ -133,11 +133,13 @@ public class Artist: Identifiable {
     public let id = UUID()
     let artistId: Int
     let name: String
-    let aliasId: Int
     init(_ artist: RedactedAPI.RedactedTorrentSearchArtist) {
         artistId = artist.id
         name = artist.name
-        aliasId = artist.aliasid
+    }
+    init(_ artist: RedactedAPI.RedactedRequestSearchArtist) {
+        artistId = Int(artist.id) ?? 0
+        name = artist.name
     }
 }
 
