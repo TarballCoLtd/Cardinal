@@ -27,6 +27,11 @@ struct ConversationView: View {
                     MessageView(message)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Conversation")
+                }
+            }
         } else {
             VStack {
                 Spacer()

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserStats: View {
+struct PersonalStats: View {
     @EnvironmentObject var model: REDAppModel
     let formatter = DateFormatter()
     init() {
@@ -67,10 +67,6 @@ extension Int {
             return "\(String(format: "%.2f", Float(self) / pow(1024, 5))) PiB"
         }
     }
-}
-
-extension Float {
-    
 }
 
 func pow(_ x: Int, _ y: Int) -> Int {

@@ -19,9 +19,15 @@ struct TorrentGroupView: View {
         List {
             Section("\(group.artist ?? "Unknown Artist") - \(group.groupName)") {
                 ForEach(group.torrents) { torrent in
-                    Text(TorrentGroupView.release(torrent))
-                    + Text("\n")
-                    + Text("\(torrent.format) / \(torrent.encoding)")
+                    NavigationLink {
+                        TorrentView(group, torrent)
+                    } label: {
+                        Text(TorrentGroupView.release(torrent))
+                        + Text("\n")
+                        + Text(TorrentGroupView.encoding(torrent))
+                        + Text("\n")
+                        + Text(torrent.size.toRelevantDataUnit())
+                    }
                 }
             }
         }
@@ -52,6 +58,22 @@ struct TorrentGroupView: View {
         }
         ret += torrent.media
         return ret
+    }
+    static func encoding(_ torrent: Torrent) -> LocalizedStringKey {
+        var ret: String = "\(torrent.format) / \(torrent.encoding)"
+        if torrent.isFreeload {
+            ret += " / **Freeload!**"
+        }
+        if torrent.isFreeleech {
+            ret += " / **Freeleech!**"
+        }
+        if torrent.isNeutralLeech {
+            ret += " / **Neutral Leech!**"
+        }
+        if torrent.isPersonalFreeleech {
+            ret += " / **Personal Freeleech!**"
+        }
+        return LocalizedStringKey(ret)
     }
 }
 

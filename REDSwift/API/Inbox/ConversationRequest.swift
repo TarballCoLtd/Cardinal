@@ -69,6 +69,7 @@ public class Conversation {
     public let subject: String
     public let sticky: Bool
     public let messages: [ConversationMessage]
+    public var profiles: [Int: UserProfile]
     public let successful: Bool
     public let requestJson: [String: Any]?
     internal init(conversation: RedactedAPI.RedactedConversation, requestJson: [String: Any]?) {
@@ -80,6 +81,7 @@ public class Conversation {
             messages.append(ConversationMessage(message))
         }
         self.messages = messages
+        profiles = [:]
         successful = conversation.status == "success"
         self.requestJson = requestJson
     }

@@ -19,6 +19,13 @@ struct PersonalProfileView: View {
                             .font(.largeTitle)
                             .bold()
                             .foregroundColor(.red)
+                        if (model.personalProfile!.donor) {
+                            Image(systemName: "heart.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 20)
+                                .foregroundColor(.red)
+                        }
                         Text("(\(model.personalProfile!.userClass))")
                             .font(.largeTitle)
                             .foregroundColor(.gray)
@@ -53,19 +60,19 @@ struct PersonalProfileView: View {
                 .padding(.vertical, 10)
                  */
                 SectionTitle("Statistics") {
-                    UserStats()
+                    PersonalStats()
                 }
                 .padding(10)
                 SectionTitle("Percentile Rankings") {
-                    UserRanks()
+                    PersonalRanks()
                 }
                 .padding(10)
                 SectionTitle("Personal") {
-                    UserPersonal()
+                    PersonalInfo()
                 }
                 .padding(10)
                 SectionTitle("Community") {
-                    UserCommunity()
+                    PersonalCommunity()
                 }
                 .padding(10)
                 Spacer()

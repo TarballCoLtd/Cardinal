@@ -59,7 +59,7 @@ extension RedactedAPI {
         var uploaded: Int?
         var downloaded: Int?
         var ratio: Float?
-        var requiredRatio: Float
+        var requiredRatio: Float?
     }
 
     internal struct RedactedUserRanks: Codable {

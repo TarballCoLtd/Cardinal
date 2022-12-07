@@ -20,8 +20,6 @@ struct MessageView: View {
                 Text(message.senderName)
                     .bold()
                     .foregroundColor(.red)
-                + Text(":")
-                    .foregroundColor(.gray)
                 Spacer()
             }
             if let html = html {

@@ -12,7 +12,6 @@ struct SearchView: View {
     @State var search: String = ""
     @State var searching: Bool = false
     @State var selectionString: String = "Torrents"
-    @State var searchResults: AnyView?
     let selections: [String] = [
         "Torrents",
         "Artists",
@@ -40,8 +39,29 @@ struct SearchView: View {
                         }
                         Spacer()
                     }
-                } else if let results = searchResults {
-                    results
+                } else  {
+                    switch selectionString {
+                    case selections[0]:
+                        if model.currentTorrentSearch != nil {
+                            TorrentResultsView()
+                        }
+                    case selections[1]:
+                        if model.currentArtistSearch != nil {
+                            ArtistResultsView()
+                        }
+                    case selections[2]:
+                        EmptyView()
+                    case selections[3]:
+                        if model.currentUserSearch != nil {
+                            UserResultsView()
+                        }
+                    default:
+                        VStack {
+                            Text("You should not be seeing this!")
+                                .font(.title)
+                            Text("Report this bug to the developer.")
+                        }
+                    }
                 }
                 Spacer()
             }
@@ -53,14 +73,21 @@ struct SearchView: View {
                 searching = true
                 switch selectionString {
                 case selections[0]:
-                    let result = try! await model.api!.requestTorrentSearchResults(term: search)
-                    searchResults = AnyView(TorrentResultsView(result))
+                    model.currentTorrentSearch = try! await model.api!.requestTorrentSearchResults(term: search)
+                    model.currentTorrentSearch!.groups.sort {
+                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                    }
                     searching = false
                 case selections[1]:
+                    model.currentArtistSearch = try! await model.api!.requestArtistSearchResults(term: search)
+                    model.currentArtistSearch!.groups.sort {
+                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                    }
                     searching = false
                 case selections[2]:
                     searching = false
                 case selections[3]:
+                    model.currentUserSearch = try! await model.api!.requestUserSearchResults(term: search)
                     searching = false
                 default:
                     print("excuse me?")

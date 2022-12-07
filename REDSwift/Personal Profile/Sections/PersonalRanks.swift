@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserRanks: View {
+struct PersonalRanks: View {
     @EnvironmentObject var model: REDAppModel
     var body: some View {
         RectangleOverlay {

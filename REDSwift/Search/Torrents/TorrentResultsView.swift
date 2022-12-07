@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct TorrentResultsView: View {
-    @State var results: TorrentSearchResult
-    init(_ results: TorrentSearchResult) {
-        self._results = State(initialValue: results)
-    }
+    @EnvironmentObject var model: REDAppModel
     var body: some View {
         List {
-            ForEach(results.groups) { group in
+            ForEach(model.currentTorrentSearch!.groups) { group in
                 if group.torrents.count > 0 {
                     NavigationLink {
-                        TorrentGroupView(group, requestSize: results.requestSize)
+                        TorrentGroupView(group, requestSize: model.currentTorrentSearch!.requestSize)
                     } label: {
                         Text(group.artist ?? "Unknown Artist")
                         + Text("\n")

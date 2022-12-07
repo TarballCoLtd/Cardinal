@@ -20,6 +20,9 @@ class REDAppModel: ObservableObject {
     @Published var fetchingConversations: Bool = false
     @Published var fetchingPersonalProfile: Bool = false
     @Published var unreadConversations: Bool = false
+    @Published var currentTorrentSearch: TorrentSearchResults?
+    @Published var currentArtistSearch: TorrentSearchResults?
+    @Published var currentUserSearch: UserSearchResults?
     init(_ apiKey: String) {
         api = RedactedAPI(apiKey)
     }

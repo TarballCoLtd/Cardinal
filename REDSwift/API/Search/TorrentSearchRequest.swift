@@ -8,7 +8,7 @@
 import Foundation
 
 extension RedactedAPI {
-    public func requestTorrentSearchResults(term: String) async throws -> TorrentSearchResult {
+    public func requestTorrentSearchResults(term: String) async throws -> TorrentSearchResults {
         guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&searchstr=\(term.replacingOccurrences(of: " ", with: "%20"))") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -19,7 +19,7 @@ extension RedactedAPI {
         print(json as Any)
         #endif
         let decoder = JSONDecoder()
-        return try TorrentSearchResult(results: decoder.decode(RedactedTorrentSearchResults.self, from: data), requestJson: json, requestSize: data.count)
+        return try TorrentSearchResults(results: decoder.decode(RedactedTorrentSearchResults.self, from: data), requestJson: json, requestSize: data.count)
     }
     
     internal struct RedactedTorrentSearchResults: Codable {
@@ -129,12 +129,13 @@ public class TorrentGroup: Identifiable {
     }
 }
 
-public class Artist {
-    let id: Int
+public class Artist: Identifiable {
+    public let id = UUID()
+    let artistId: Int
     let name: String
     let aliasId: Int
     init(_ artist: RedactedAPI.RedactedTorrentSearchArtist) {
-        id = artist.id
+        artistId = artist.id
         name = artist.name
         aliasId = artist.aliasid
     }
@@ -204,10 +205,10 @@ public class Torrent: Identifiable {
     }
 }
 
-public class TorrentSearchResult {
+public class TorrentSearchResults {
     let currentPage: Int
     let pages: Int
-    let groups: [TorrentGroup]
+    var groups: [TorrentGroup]
     let requestJson: [String: Any]?
     let requestSize: Int
     let successful: Bool
