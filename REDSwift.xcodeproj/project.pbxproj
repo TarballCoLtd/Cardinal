@@ -24,6 +24,7 @@
 		03399C7C293D2128008DB706 /* ProfilePictureRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03399C7B293D2128008DB706 /* ProfilePictureRequest.swift */; };
 		03399C7E293D2B3A008DB706 /* PersonalCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03399C7D293D2B3A008DB706 /* PersonalCommunity.swift */; };
 		03399C81293D6384008DB706 /* InboxRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03399C80293D6384008DB706 /* InboxRequest.swift */; };
+		033DF7F92940F8ED002C36F6 /* RequestResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033DF7F82940F8ED002C36F6 /* RequestResultsView.swift */; };
 		036CD528293FFFA40053701C /* TorrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CD527293FFFA40053701C /* TorrentView.swift */; };
 		036CD52A2940180C0053701C /* ArtistSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CD5292940180C0053701C /* ArtistSearchRequest.swift */; };
 		036CD52C29401ADD0053701C /* ArtistResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036CD52B29401ADD0053701C /* ArtistResultsView.swift */; };
@@ -67,6 +68,7 @@
 		03399C7B293D2128008DB706 /* ProfilePictureRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureRequest.swift; sourceTree = "<group>"; };
 		03399C7D293D2B3A008DB706 /* PersonalCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalCommunity.swift; sourceTree = "<group>"; };
 		03399C80293D6384008DB706 /* InboxRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxRequest.swift; sourceTree = "<group>"; };
+		033DF7F82940F8ED002C36F6 /* RequestResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResultsView.swift; sourceTree = "<group>"; };
 		036CD527293FFFA40053701C /* TorrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentView.swift; sourceTree = "<group>"; };
 		036CD5292940180C0053701C /* ArtistSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistSearchRequest.swift; sourceTree = "<group>"; };
 		036CD52B29401ADD0053701C /* ArtistResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistResultsView.swift; sourceTree = "<group>"; };
@@ -125,13 +127,9 @@
 		030B8528293A8B6B00661674 /* REDSwift */ = {
 			isa = PBXGroup;
 			children = (
-				030B8529293A8B6B00661674 /* REDSwiftApp.swift */,
-				0333D3A3293C0660009CC6E1 /* REDAppModel.swift */,
-				030B852B293A8B6B00661674 /* ContentView.swift */,
+				033DF7F62940F843002C36F6 /* Entrypoint */,
+				033DF7F52940F802002C36F6 /* Tabs */,
 				036CD536294038620053701C /* Generic Views */,
-				03256147293E7F40000D5636 /* Search */,
-				03E4FCA8293D85D600C7A6B0 /* Inbox */,
-				0387CA08293C5F2300864B63 /* Personal Profile */,
 				03F9AC42293AB44300D32548 /* API */,
 				030B852D293A8B7000661674 /* Assets.xcassets */,
 				030B852F293A8B7000661674 /* Preview Content */,
@@ -153,9 +151,38 @@
 				03256148293E7FD1000D5636 /* SearchView.swift */,
 				036CD5332940381F0053701C /* Torrents */,
 				036CD534294038290053701C /* Artists */,
+				033DF7F72940F8D7002C36F6 /* Requests */,
 				036CD535294038430053701C /* Users */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		033DF7F52940F802002C36F6 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				03256147293E7F40000D5636 /* Search */,
+				03E4FCA8293D85D600C7A6B0 /* Inbox */,
+				0387CA08293C5F2300864B63 /* Personal Profile */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		033DF7F62940F843002C36F6 /* Entrypoint */ = {
+			isa = PBXGroup;
+			children = (
+				030B8529293A8B6B00661674 /* REDSwiftApp.swift */,
+				0333D3A3293C0660009CC6E1 /* REDAppModel.swift */,
+				030B852B293A8B6B00661674 /* ContentView.swift */,
+			);
+			path = Entrypoint;
+			sourceTree = "<group>";
+		};
+		033DF7F72940F8D7002C36F6 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				033DF7F82940F8ED002C36F6 /* RequestResultsView.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		036CD52D29401E640053701C /* Inbox */ = {
@@ -393,6 +420,7 @@
 				036CD528293FFFA40053701C /* TorrentView.swift in Sources */,
 				0333D3A4293C0660009CC6E1 /* REDAppModel.swift in Sources */,
 				03E4FCB1293D8F8600C7A6B0 /* ConversationRequest.swift in Sources */,
+				033DF7F92940F8ED002C36F6 /* RequestResultsView.swift in Sources */,
 				036CD53129402F590053701C /* UserResultsView.swift in Sources */,
 				03F9AC4A293AE18D00D32548 /* AnnouncementsRequest.swift in Sources */,
 				036CD539294038E50053701C /* UserProfileView.swift in Sources */,
