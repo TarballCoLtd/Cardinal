@@ -138,7 +138,7 @@ public class Artist: Identifiable {
         name = artist.name
     }
     init(_ artist: RedactedAPI.RedactedRequestSearchArtist) {
-        artistId = Int(artist.id) ?? 0
+        artistId = artist.id
         name = artist.name
     }
 }

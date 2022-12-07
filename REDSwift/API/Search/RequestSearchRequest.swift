@@ -9,7 +9,7 @@ import Foundation
 
 extension RedactedAPI {
     public func requestRequestSearchResults(term: String) async throws -> RequestSearchResults {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(term)") else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(term.replacingOccurrences(of: " ", with: "%20"))") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -50,9 +50,9 @@ extension RedactedAPI {
         var description: String
         var catalogueNumber: String
         var releaseType: String
-        var bitrateList: String
-        var formatList: String
-        var mediaList: String
+        var bitrateList: [String]
+        var formatList: [String]
+        var mediaList: [String]
         var logCue: String
         var isFilled: Bool
         var fillerId: Int
@@ -62,12 +62,13 @@ extension RedactedAPI {
     }
     
     internal struct RedactedRequestSearchArtist: Codable {
-        var id: String
+        var id: Int
         var name: String
     }
 }
 
-public class Request {
+public class Request: Identifiable {
+    public let id = UUID()
     public let requestId: Int
     public let requestorId: Int
     public let requestorName: String
@@ -84,9 +85,9 @@ public class Request {
     public let description: String
     public let catalogueNumber: String
     public let releaseType: String
-    public let bitrateList: String
-    public let formatList: String
-    public let mediaList: String
+    public let bitrateList: [String]
+    public let formatList: [String]
+    public let mediaList: [String]
     public let logCue: String
     public let isFilled: Bool
     public let fillerId: Int

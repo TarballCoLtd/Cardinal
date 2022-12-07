@@ -23,12 +23,13 @@ class REDAppModel: ObservableObject {
     @Published var currentTorrentSearch: TorrentSearchResults?
     @Published var currentArtistSearch: TorrentSearchResults?
     @Published var currentUserSearch: UserSearchResults?
+    @Published var currentRequestSearch: RequestSearchResults?
     init(_ apiKey: String) {
         api = RedactedAPI(apiKey)
     }
+    #if DEBUG
     init() {
-        #if DEBUG
         api = RedactedAPI("3647f30f.64d21b5659bdc5fed8ee1ebc658b65b6")
-        #endif
     }
+    #endif
 }

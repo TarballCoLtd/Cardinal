@@ -50,7 +50,9 @@ struct SearchView: View {
                             ArtistResultsView()
                         }
                     case selections[2]:
-                        EmptyView()
+                        if model.currentRequestSearch != nil {
+                            RequestResultsView()
+                        }
                     case selections[3]:
                         if model.currentUserSearch != nil {
                             UserResultsView()
@@ -85,6 +87,7 @@ struct SearchView: View {
                     }
                     searching = false
                 case selections[2]:
+                    model.currentRequestSearch = try! await model.api!.requestRequestSearchResults(term: search)
                     searching = false
                 case selections[3]:
                     model.currentUserSearch = try! await model.api!.requestUserSearchResults(term: search)

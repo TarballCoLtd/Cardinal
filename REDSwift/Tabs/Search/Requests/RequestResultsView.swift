@@ -8,7 +8,25 @@
 import SwiftUI
 
 struct RequestResultsView: View {
+    @EnvironmentObject var model: REDAppModel
+    let gradient = LinearGradient(gradient: Gradient(colors: [.accentColor, .cyan, .accentColor]), startPoint: .leading, endPoint: .trailing)
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(model.currentRequestSearch!.requests) { request in
+                NavigationLink {
+                    RequestView(request, requestSize: model.currentRequestSearch!.requestSize)
+                } label: {
+                    HStack {
+                        Text(request.title)
+                        Spacer()
+                        Text(request.bounty.toRelevantDataUnit())
+                            .overlay {
+                                Capsule()
+                                    .stroke(gradient, lineWidth: 1)
+                            }
+                    }
+                }
+            }
+        }
     }
 }
