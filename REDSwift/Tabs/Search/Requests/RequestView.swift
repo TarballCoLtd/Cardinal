@@ -39,6 +39,7 @@ struct RequestView: View {
                     HStack {
                         Text(request.requestorName)
                             .foregroundColor(.red)
+                            .bold()
                         Spacer()
                     }
                 }
@@ -73,6 +74,8 @@ struct RequestView: View {
                     SectionTitle("Filled By") {
                         HStack {
                             Text(request.fillerName)
+                                .foregroundColor(.red)
+                                .bold()
                             Spacer()
                         }
                     }
@@ -81,7 +84,7 @@ struct RequestView: View {
             Group {
                 SectionTitle("Allowed Bit Depths/Bitrates") {
                     VStack {
-                        ForEach(request.bitrateList) { bitrate in
+                        ForEach(request.bitrateList, id: \.self) { bitrate in
                             HStack {
                                 Text(bitrate)
                                 Spacer()
@@ -91,7 +94,7 @@ struct RequestView: View {
                 }
                 SectionTitle("Allowed Formats") {
                     VStack {
-                        ForEach(request.formatList) { format in
+                        ForEach(request.formatList, id: \.self) { format in
                             HStack {
                                 Text(format)
                                 Spacer()
@@ -101,7 +104,7 @@ struct RequestView: View {
                 }
                 SectionTitle("Allowed Media") {
                     VStack {
-                        ForEach(request.mediaList) { media in
+                        ForEach(request.mediaList, id: \.self) { media in
                             HStack {
                                 Text(media)
                                 Spacer()

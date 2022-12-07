@@ -62,7 +62,7 @@ extension RedactedAPI {
     }
     
     internal struct RedactedRequestSearchArtist: Codable {
-        var id: Int
+        //var id: Int
         var name: String
     }
 }

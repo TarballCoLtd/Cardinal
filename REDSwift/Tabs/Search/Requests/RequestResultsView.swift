@@ -20,6 +20,8 @@ struct RequestResultsView: View {
                         Text(request.title)
                         Spacer()
                         Text(request.bounty.toRelevantDataUnit())
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 15)
                             .overlay {
                                 Capsule()
                                     .stroke(gradient, lineWidth: 1)
