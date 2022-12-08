@@ -1,13 +1,13 @@
 //
-//  TorrentGroupView.swift
+//  ArtistGroupView.swift
 //  REDSwift
 //
-//  Created by Tarball on 12/6/22.
+//  Created by Tarball on 12/7/22.
 //
 
 import SwiftUI
 
-struct TorrentGroupView: View {
+struct ArtistGroupView: View {
     @State var group: TorrentGroup
     @State var requestSize: Int
     @State var searchSizeAlert: Bool = false
@@ -20,7 +20,7 @@ struct TorrentGroupView: View {
             Section("\(group.artist ?? "Unknown Artist") - \(group.groupName)") {
                 ForEach(group.torrents) { torrent in
                     NavigationLink {
-                        TorrentView(group, torrent)
+                        ArtistTorrentView(group, torrent)
                     } label: {
                         Text(TorrentGroupView.release(torrent))
                         + Text("\n")
@@ -45,40 +45,5 @@ struct TorrentGroupView: View {
                     }
             }
         }
-    }
-    static func release(_ torrent: Torrent) -> String {
-        var ret: String = ""
-        ret += "\(torrent.remasteredYear) - "
-        if torrent.remasterCatalogueNumber != "" {
-            ret += "\(torrent.remasterCatalogueNumber) / "
-        }
-        ret += torrent.media
-        return ret
-    }
-    static func encoding(_ torrent: Torrent) -> LocalizedStringKey {
-        var ret: String = "\(torrent.format) / \(torrent.encoding)"
-        if torrent.isFreeload {
-            ret += " / **Freeload!**"
-        }
-        if torrent.isFreeleech {
-            ret += " / **Freeleech!**"
-        }
-        if torrent.isNeutralLeech {
-            ret += " / **Neutral Leech!**"
-        }
-        if torrent.isPersonalFreeleech {
-            ret += " / **Personal Freeleech!**"
-        }
-        return LocalizedStringKey(ret)
-    }
-}
-
-extension Date {
-    func get(_ components: Calendar.Component..., calendar: Calendar = Calendar.current) -> DateComponents {
-        return calendar.dateComponents(Set(components), from: self)
-    }
-
-    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
-        return calendar.component(component, from: self)
     }
 }

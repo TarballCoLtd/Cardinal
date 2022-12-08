@@ -18,7 +18,7 @@ struct ConversationView: View {
             List {
                 SectionTitle("Subject") {
                     HStack {
-                        Text(conversation.subject)
+                        Text(conversation.subject.replacingOccurrences())
                             .bold()
                         Spacer()
                     }
@@ -49,5 +49,15 @@ struct ConversationView: View {
                 }
             }
         }
+    }
+}
+
+extension String {
+    func replacingOccurrences() -> String {
+        return replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&amp;", with: "&")
     }
 }

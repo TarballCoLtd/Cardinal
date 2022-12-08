@@ -9,7 +9,8 @@ import Foundation
 
 extension RedactedAPI {
     public func requestTorrentSearchResults(term: String) async throws -> TorrentSearchResults {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&searchstr=\(term.replacingOccurrences(of: " ", with: "%20"))") else { throw RedactedAPIError.urlParseError }
+        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&searchstr=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -28,8 +29,8 @@ extension RedactedAPI {
     }
     
     internal struct RedactedTorrentSearchResultsResponse: Codable {
-        var currentPage: Int
-        var pages: Int
+        var currentPage: Int?
+        var pages: Int?
         var results: [RedactedTorrentSearchResultsResponseResults]
     }
     
@@ -208,8 +209,8 @@ public class Torrent: Identifiable {
 }
 
 public class TorrentSearchResults {
-    let currentPage: Int
-    let pages: Int
+    let currentPage: Int?
+    let pages: Int?
     var groups: [TorrentGroup]
     let requestJson: [String: Any]?
     let requestSize: Int

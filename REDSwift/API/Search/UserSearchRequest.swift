@@ -9,7 +9,8 @@ import Foundation
 
 extension RedactedAPI {
     public func requestUserSearchResults(term: String) async throws -> UserSearchResults {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=usersearch&search=\(term)") else { throw RedactedAPIError.urlParseError }
+        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=usersearch&search=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -28,8 +29,8 @@ extension RedactedAPI {
     }
     
     internal struct RedactedUserSearchResponse: Codable {
-        var currentPage: Int
-        var pages: Int
+        var currentPage: Int?
+        var pages: Int?
         var results: [RedactedUserSearchResult]
     }
     
@@ -62,8 +63,8 @@ public class UserSearchResult: Identifiable {
 }
 
 public class UserSearchResults {
-    let currentPage: Int
-    let pages: Int
+    let currentPage: Int?
+    let pages: Int?
     var results: [UserSearchResult]
     let successful: Bool
     let requestJson: [String: Any]?

@@ -15,7 +15,11 @@ struct UserResultsView: View {
                 NavigationLink {
                     UserProfileView(result)
                 } label: {
-                    Text(result.username)
+                    HStack {
+                        Text(result.username)
+                        Spacer()
+                        AccentCapsule(result.class)
+                    }
                 }
             }
         }

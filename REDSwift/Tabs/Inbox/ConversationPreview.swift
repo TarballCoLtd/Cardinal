@@ -18,7 +18,7 @@ struct ConversationPreview: View {
                 .foregroundColor(.accentColor.opacity(message.unread ? 1.0 : 0.0))
                 .frame(maxWidth: 10)
                 .padding(5)
-            Text(message.subject)
+            Text(message.subject.replacingOccurrences())
                 .bold()
             Spacer()
         }

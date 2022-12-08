@@ -14,7 +14,7 @@ struct ArtistResultsView: View {
             ForEach(model.currentArtistSearch!.groups) { group in
                 if group.torrents.count > 0 {
                     NavigationLink {
-                        TorrentGroupView(group, requestSize: model.currentArtistSearch!.requestSize)
+                        ArtistGroupView(group, requestSize: model.currentArtistSearch!.requestSize)
                     } label: {
                         Text(group.artist ?? "Unknown Artist")
                         + Text("\n")

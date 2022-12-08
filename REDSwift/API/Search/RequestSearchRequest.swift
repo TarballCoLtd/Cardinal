@@ -9,7 +9,8 @@ import Foundation
 
 extension RedactedAPI {
     public func requestRequestSearchResults(term: String) async throws -> RequestSearchResults {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(term.replacingOccurrences(of: " ", with: "%20"))") else { throw RedactedAPIError.urlParseError }
+        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")
@@ -28,8 +29,8 @@ extension RedactedAPI {
     }
     
     internal struct RedactedRequestSearchResponse: Codable {
-        var currentPage: Int
-        var pages: Int
+        var currentPage: Int?
+        var pages: Int?
         var results: [RedactedRequestSearchResult]
     }
     
@@ -49,7 +50,7 @@ extension RedactedAPI {
         var image: String
         var description: String
         var catalogueNumber: String
-        var releaseType: String
+        var releaseType: String?
         var bitrateList: [String]
         var formatList: [String]
         var mediaList: [String]
@@ -84,7 +85,7 @@ public class Request: Identifiable {
     public let image: String
     public let description: String
     public let catalogueNumber: String
-    public let releaseType: String
+    public let releaseType: String?
     public let bitrateList: [String]
     public let formatList: [String]
     public let mediaList: [String]
@@ -132,8 +133,8 @@ public class Request: Identifiable {
 }
 
 public class RequestSearchResults {
-    public let currentPage: Int
-    public let pages: Int
+    public let currentPage: Int?
+    public let pages: Int?
     public let requests: [Request]
     public let successful: Bool
     public let requestJson: [String: Any]?

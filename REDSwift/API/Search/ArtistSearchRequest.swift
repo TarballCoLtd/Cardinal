@@ -9,7 +9,8 @@ import Foundation
 
 extension RedactedAPI {
     public func requestArtistSearchResults(term: String) async throws -> TorrentSearchResults {
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&artistname=\(term.replacingOccurrences(of: " ", with: "%20"))") else { throw RedactedAPIError.urlParseError }
+        guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&artistname=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")

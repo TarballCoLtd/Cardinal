@@ -17,15 +17,9 @@ struct RequestResultsView: View {
                     RequestView(request, requestSize: model.currentRequestSearch!.requestSize)
                 } label: {
                     HStack {
-                        Text(request.title)
+                        Text(request.title.replacingOccurrences())
                         Spacer()
-                        Text(request.bounty.toRelevantDataUnit())
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 15)
-                            .overlay {
-                                Capsule()
-                                    .stroke(gradient, lineWidth: 1)
-                            }
+                        AccentCapsule(request.bounty.toRelevantDataUnit())
                     }
                 }
             }
