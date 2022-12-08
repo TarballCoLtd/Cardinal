@@ -12,7 +12,8 @@ import FloatingTabBar
 class REDAppModel: ObservableObject {
     @Published var api: RedactedAPI?
     @Published var personalProfile: UserProfile?
-    @Published var announcements: [Announcement]?
+    @Published var announcements: Announcements?
+    @Published var parsedAnnouncements: [Int: String] = [:]
     @Published var notifications: Notifications?
     @Published var inbox: Inbox?
     @Published var pfp: Image?
@@ -24,12 +25,9 @@ class REDAppModel: ObservableObject {
     @Published var currentArtistSearch: TorrentSearchResults?
     @Published var currentUserSearch: UserSearchResults?
     @Published var currentRequestSearch: RequestSearchResults?
+    @Published var selectionString: String = "Torrents"
+    
     init(_ apiKey: String) {
-        api = RedactedAPI(apiKey)
+        api = RedactedAPI()
     }
-    #if DEBUG
-    init() {
-        api = RedactedAPI("3647f30f.64d21b5659bdc5fed8ee1ebc658b65b6")
-    }
-    #endif
 }

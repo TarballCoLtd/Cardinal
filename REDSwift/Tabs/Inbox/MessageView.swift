@@ -22,17 +22,12 @@ struct MessageView: View {
                     .foregroundColor(.red)
                 Spacer()
             }
-            if let html = html {
-                HStack {
-                    Text(html)
-                    Spacer()
-                }
-            } else {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+            HStack {
+                Text(html ?? "")
                     .onAppear { // shits itself for some reason unless i do this bullshit (im going insane)
                         html = message.body.htmlToString()
                     }
+                Spacer()
             }
         }
     }

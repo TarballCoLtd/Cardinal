@@ -21,7 +21,7 @@ struct ContentView: View {
         ZStack {
             switch viewIndex { // this switch block. that's the joke. (sobbing profusely)
             case 0:
-                Text("test 1")
+                HomeView()
                     .onAppear {
                         tabBarItems[0] = BottomBarItem(icon: "house.fill", color: .iconColor)
                         tabBarItems[1] = BottomBarItem(icon: "magnifyingglass", color: .iconColor)

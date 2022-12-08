@@ -10,9 +10,11 @@ import SwiftUI
 struct RequestView: View {
     @State var request: Request
     @State var requestSize: Int
+    @State var descriptionHtml: String?
     init(_ request: Request, requestSize: Int) {
         self._request = State(initialValue: request)
         self._requestSize = State(initialValue: requestSize)
+        self.descriptionHtml = nil
     }
     var body: some View {
         List {
@@ -113,10 +115,10 @@ struct RequestView: View {
                     }
                 }
                 SectionTitle("Description") {
-                    HStack {
-                        Text(request.description)
-                        Spacer()
-                    }
+                    Text(descriptionHtml ?? "")
+                        .onAppear {
+                            descriptionHtml = request.description.htmlToString()
+                        }
                 }
             }
         }

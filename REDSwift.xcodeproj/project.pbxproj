@@ -19,6 +19,8 @@
 		03314C3E2941462B00916A4B /* AccentCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03314C3D2941462B00916A4B /* AccentCapsule.swift */; };
 		03314C4029416DFA00916A4B /* ArtistGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03314C3F29416DFA00916A4B /* ArtistGroupView.swift */; };
 		03314C4229416E1800916A4B /* ArtistTorrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03314C4129416E1800916A4B /* ArtistTorrentView.swift */; };
+		03314C4529417ED000916A4B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03314C4429417ED000916A4B /* HomeView.swift */; };
+		03314C4729418C5600916A4B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03314C4629418C5600916A4B /* SettingsView.swift */; };
 		0333D3A4293C0660009CC6E1 /* REDAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3A3293C0660009CC6E1 /* REDAppModel.swift */; };
 		0333D3A9293C16E8009CC6E1 /* NotificationsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3A8293C16E8009CC6E1 /* NotificationsRequest.swift */; };
 		0333D3AB293C16FB009CC6E1 /* RedactedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0333D3AA293C16FB009CC6E1 /* RedactedAPI.swift */; };
@@ -68,6 +70,8 @@
 		03314C3D2941462B00916A4B /* AccentCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentCapsule.swift; sourceTree = "<group>"; };
 		03314C3F29416DFA00916A4B /* ArtistGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistGroupView.swift; sourceTree = "<group>"; };
 		03314C4129416E1800916A4B /* ArtistTorrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTorrentView.swift; sourceTree = "<group>"; };
+		03314C4429417ED000916A4B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		03314C4629418C5600916A4B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0333D3A3293C0660009CC6E1 /* REDAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REDAppModel.swift; sourceTree = "<group>"; };
 		0333D3A8293C16E8009CC6E1 /* NotificationsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRequest.swift; sourceTree = "<group>"; };
 		0333D3AA293C16FB009CC6E1 /* RedactedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedAPI.swift; sourceTree = "<group>"; };
@@ -165,9 +169,19 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		03314C4329417EC700916A4B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				03314C4429417ED000916A4B /* HomeView.swift */,
+				03314C4629418C5600916A4B /* SettingsView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		033DF7F52940F802002C36F6 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
+				03314C4329417EC700916A4B /* Home */,
 				03256147293E7F40000D5636 /* Search */,
 				03E4FCA8293D85D600C7A6B0 /* Inbox */,
 				0387CA08293C5F2300864B63 /* Personal Profile */,
@@ -421,10 +435,12 @@
 				036CD52F294024590053701C /* UserSearchRequest.swift in Sources */,
 				0333D3AB293C16FB009CC6E1 /* RedactedAPI.swift in Sources */,
 				0333D3A9293C16E8009CC6E1 /* NotificationsRequest.swift in Sources */,
+				03314C4529417ED000916A4B /* HomeView.swift in Sources */,
 				03E4FCAA293D85E300C7A6B0 /* InboxView.swift in Sources */,
 				03B86E0E293EF63C00173971 /* TorrentResultsView.swift in Sources */,
 				03399C7A293D1EEB008DB706 /* PersonalInfo.swift in Sources */,
 				0387C9ED293C4C3300864B63 /* PersonalProfileView.swift in Sources */,
+				03314C4729418C5600916A4B /* SettingsView.swift in Sources */,
 				03256149293E7FD1000D5636 /* SearchView.swift in Sources */,
 				030B852C293A8B6B00661674 /* ContentView.swift in Sources */,
 				030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */,

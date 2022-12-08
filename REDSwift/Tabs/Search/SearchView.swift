@@ -11,7 +11,6 @@ struct SearchView: View {
     @EnvironmentObject var model: REDAppModel
     @State var search: String = ""
     @State var searching: Bool = false
-    @State var selectionString: String = "Torrents"
     let selections: [String] = [
         "Torrents",
         "Artists",
@@ -21,7 +20,7 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Picker("", selection: $selectionString) {
+                Picker("", selection: $model.selectionString) {
                     ForEach(selections, id: \.self) { selection in
                         Text(selection)
                     }
@@ -40,7 +39,7 @@ struct SearchView: View {
                         Spacer()
                     }
                 } else  {
-                    switch selectionString {
+                    switch model.selectionString {
                     case selections[0]:
                         if model.currentTorrentSearch != nil {
                             TorrentResultsView()
@@ -73,7 +72,7 @@ struct SearchView: View {
         .onSubmit(of: .search) {
             Task {
                 searching = true
-                switch selectionString {
+                switch model.selectionString {
                 case selections[0]:
                     model.currentTorrentSearch = try! await model.api!.requestTorrentSearchResults(term: search)
                     model.currentTorrentSearch!.groups.sort {

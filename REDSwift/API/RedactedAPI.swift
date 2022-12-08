@@ -8,12 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class RedactedAPI: ObservableObject {
-    @Published public var apiKey: String
-    public init(_ apiKey: String) {
-        self.apiKey = apiKey
-    }
-}
+public class RedactedAPI: ObservableObject {}
 
 public enum RedactedAPIError: Error {
     case urlParseError
