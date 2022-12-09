@@ -8,7 +8,9 @@
 import Foundation
 import SwiftUI
 
-public class RedactedAPI: ObservableObject {}
+public class RedactedAPI: ObservableObject {
+    @AppStorage("apiKey") var apiKey: String = ""
+}
 
 public enum RedactedAPIError: Error {
     case urlParseError

@@ -12,8 +12,12 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section("Authentication") {
-                
+                SecureField("API Key", text: $apiKey)
+                Text("An API key can be created in your RED profile settings under Access Settings.")
+                    .foregroundColor(.gray)
+                    .font(.caption)
             }
         }
+        .navigationTitle("Settings")
     }
 }

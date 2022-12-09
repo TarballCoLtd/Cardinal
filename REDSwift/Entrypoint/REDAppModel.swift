@@ -10,7 +10,7 @@ import SwiftUI
 import FloatingTabBar
 
 class REDAppModel: ObservableObject {
-    @Published var api: RedactedAPI?
+    @Published var api: RedactedAPI
     @Published var personalProfile: UserProfile?
     @Published var announcements: Announcements?
     @Published var parsedAnnouncements: [Int: String] = [:]
@@ -27,7 +27,7 @@ class REDAppModel: ObservableObject {
     @Published var currentRequestSearch: RequestSearchResults?
     @Published var selectionString: String = "Torrents"
     
-    init(_ apiKey: String) {
+    init() {
         api = RedactedAPI()
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject var model: REDAppModel
+    @AppStorage("apiKey") var apiKey: String = ""
     @State var search: String = ""
     @State var searching: Bool = false
     let selections: [String] = [
@@ -27,7 +28,15 @@ struct SearchView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal, 15)
-                if searching {
+                if apiKey == "" {
+                    VStack {
+                        Spacer()
+                        Text("API Key Not Set")
+                            .font(.title)
+                        Text("Your API key can be set in settings.")
+                        Spacer()
+                    }
+                } else if searching {
                     VStack {
                         Spacer()
                         HStack {
@@ -38,7 +47,7 @@ struct SearchView: View {
                         }
                         Spacer()
                     }
-                } else  {
+                } else {
                     switch model.selectionString {
                     case selections[0]:
                         if model.currentTorrentSearch != nil {
@@ -71,29 +80,31 @@ struct SearchView: View {
         .searchable(text: $search, prompt: "Search")
         .onSubmit(of: .search) {
             Task {
-                searching = true
-                switch model.selectionString {
-                case selections[0]:
-                    model.currentTorrentSearch = try! await model.api!.requestTorrentSearchResults(term: search)
-                    model.currentTorrentSearch!.groups.sort {
-                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                if apiKey != "" {
+                    searching = true
+                    switch model.selectionString {
+                    case selections[0]:
+                        model.currentTorrentSearch = try! await model.api.requestTorrentSearchResults(term: search)
+                        model.currentTorrentSearch!.groups.sort {
+                            ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                        }
+                        searching = false
+                    case selections[1]:
+                        model.currentArtistSearch = try! await model.api.requestArtistSearchResults(term: search)
+                        model.currentArtistSearch!.groups.sort {
+                            ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                        }
+                        searching = false
+                    case selections[2]:
+                        model.currentRequestSearch = try! await model.api.requestRequestSearchResults(term: search)
+                        searching = false
+                    case selections[3]:
+                        model.currentUserSearch = try! await model.api.requestUserSearchResults(term: search)
+                        searching = false
+                    default:
+                        print("excuse me?")
+                        searching = false
                     }
-                    searching = false
-                case selections[1]:
-                    model.currentArtistSearch = try! await model.api!.requestArtistSearchResults(term: search)
-                    model.currentArtistSearch!.groups.sort {
-                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
-                    }
-                    searching = false
-                case selections[2]:
-                    model.currentRequestSearch = try! await model.api!.requestRequestSearchResults(term: search)
-                    searching = false
-                case selections[3]:
-                    model.currentUserSearch = try! await model.api!.requestUserSearchResults(term: search)
-                    searching = false
-                default:
-                    print("excuse me?")
-                    searching = false
                 }
             }
         }

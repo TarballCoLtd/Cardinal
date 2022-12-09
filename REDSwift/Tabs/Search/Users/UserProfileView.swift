@@ -10,6 +10,7 @@ import SwiftUI
 struct UserProfileView: View {
     @EnvironmentObject var model: REDAppModel
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("apiKey") var apiKey: String = ""
     @State var result: UserSearchResult
     @State var profile: UserProfile?
     @State var avatarExists: Bool = true
@@ -105,10 +106,10 @@ struct UserProfileView: View {
         }
         .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
             Task {
-                profile = try! await model.api!.requestUserProfile(user: result.userId)
+                profile = try! await model.api.requestUserProfile(user: result.userId)
                 avatarExists = profile!.avatar != ""
                 if avatarExists {
-                    pfp = try! await model.api!.requestProfilePicture(profile!.avatar)
+                    pfp = try! await model.api.requestProfilePicture(profile!.avatar)
                 }
             }
         }
@@ -121,9 +122,9 @@ struct UserProfileView: View {
                 sections
                 Spacer()
             } onRefresh: {
-                let profile = try! await model.api!.requestPersonalProfile()
-                model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
-                model.pfp = try! await model.api!.requestProfilePicture(model.personalProfile!.avatar)
+                let profile = try! await model.api.requestPersonalProfile()
+                model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
+                model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -133,7 +134,7 @@ struct UserProfileView: View {
                         .font(.headline)
                 }
             }
-        } else if model.api != nil {
+        } else if apiKey != "" {
             loading
         } else {
             VStack {

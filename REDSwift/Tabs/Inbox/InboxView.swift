@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InboxView: View {
     @EnvironmentObject var model: REDAppModel
-    //@State var search: String = ""
+    @AppStorage("apiKey") var apiKey: String = ""
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -24,7 +24,7 @@ struct InboxView: View {
                 }
                 .navigationTitle("Inbox")
                 .refreshable {
-                    model.inbox = try! await model.api!.requestInbox(page: 1, type: .inbox)
+                    model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
                 }
             }
             .onAppear {
@@ -32,8 +32,7 @@ struct InboxView: View {
                     model.unreadConversations = conversation.unread
                 }
             }
-            //.searchable(text: $search, prompt: "Search")
-        } else if model.api != nil {
+        } else if apiKey != "" {
             VStack {
                 Spacer()
                 HStack {
@@ -46,7 +45,7 @@ struct InboxView: View {
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
-                    model.inbox = try! await model.api!.requestInbox(page: 1, type: .inbox)
+                    model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
                 }
             }
         } else {

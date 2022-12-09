@@ -10,6 +10,7 @@ import SwiftUI
 struct PersonalProfileView: View {
     @EnvironmentObject var model: REDAppModel
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("apiKey") var apiKey: String = ""
     var body: some View {
         if model.personalProfile != nil {
             RefreshableScrollView { // the padding in this makes me :cringeharold:
@@ -77,11 +78,11 @@ struct PersonalProfileView: View {
                 .padding(10)
                 Spacer()
             } onRefresh: {
-                let profile = try! await model.api!.requestPersonalProfile()
-                model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
-                model.pfp = try! await model.api!.requestProfilePicture(model.personalProfile!.avatar)
+                let profile = try! await model.api.requestPersonalProfile()
+                model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
+                model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
             }
-        } else if model.api != nil {
+        } else if apiKey != "" {
             VStack {
                 Spacer()
                 HStack {
@@ -94,9 +95,9 @@ struct PersonalProfileView: View {
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
-                    let profile = try! await model.api!.requestPersonalProfile()
-                    model.personalProfile = try! await model.api!.requestUserProfile(user: profile.id)
-                    model.pfp = try! await model.api!.requestProfilePicture(model.personalProfile!.avatar)
+                    let profile = try! await model.api.requestPersonalProfile()
+                    model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
+                    model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
                 }
             }
         } else {
