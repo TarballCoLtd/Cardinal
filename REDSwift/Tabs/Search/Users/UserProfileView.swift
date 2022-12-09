@@ -23,23 +23,34 @@ struct UserProfileView: View {
         if let profile = profile {
             VStack {
                 HStack {
+                    Spacer()
                     Text(profile.username)
                         .font(.largeTitle)
                         .bold()
                         .foregroundColor(.red)
-                    if (profile.donor) {
+                    if profile.donor {
                         Image(systemName: "heart.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 20)
                             .foregroundColor(.red)
                     }
+                    if profile.warned {
+                        Image(systemName: "exclamationmark.triangle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 20)
+                            .foregroundColor(.red)
+                    }
+                    Spacer()
+                }
+                HStack {
+                    Spacer()
                     Text("(\(profile.userClass))")
                         .font(.largeTitle)
                         .foregroundColor(.gray)
                     Spacer()
                 }
-                //.padding(.top, 10)
                 Divider()
             }
             .padding(.horizontal, 20)

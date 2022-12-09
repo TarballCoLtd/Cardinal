@@ -16,17 +16,29 @@ struct PersonalProfileView: View {
             RefreshableScrollView { // the padding in this makes me :cringeharold:
                 VStack {
                     HStack {
+                        Spacer()
                         Text(model.personalProfile!.username)
                             .font(.largeTitle)
                             .bold()
                             .foregroundColor(.red)
-                        if (model.personalProfile!.donor) {
+                        if model.personalProfile!.donor {
                             Image(systemName: "heart.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 20)
                                 .foregroundColor(.red)
                         }
+                        if model.personalProfile!.warned {
+                            Image(systemName: "exclamationmark.triangle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 20)
+                                .foregroundColor(.red)
+                        }
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
                         Text("(\(model.personalProfile!.userClass))")
                             .font(.largeTitle)
                             .foregroundColor(.gray)
