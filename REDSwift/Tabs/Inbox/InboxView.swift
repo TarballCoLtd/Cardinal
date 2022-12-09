@@ -10,6 +10,7 @@ import SwiftUI
 struct InboxView: View {
     @EnvironmentObject var model: REDAppModel
     @AppStorage("apiKey") var apiKey: String = ""
+    @State var fetchingPage: Bool = false
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -24,7 +25,59 @@ struct InboxView: View {
                 }
                 .navigationTitle("Inbox")
                 .refreshable {
-                    model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
+                    let currentPage = model.inbox!.currentPage
+                    model.inbox = nil
+                    model.inbox = try! await model.api.requestInbox(page: currentPage, type: .inbox)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            if model.inbox!.currentPage > 1 {
+                                Button {
+                                    Task {
+                                        fetchingPage = true
+                                        let currentPage = model.inbox!.currentPage
+                                        model.inbox = nil
+                                        model.inbox = try! await model.api.requestInbox(page: currentPage - 1, type: .inbox)
+                                        fetchingPage = false
+                                    }
+                                } label: {
+                                    Image(systemName: "arrowtriangle.left.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                            } else {
+                                Button {} label: {
+                                    Image(systemName: "arrowtriangle.left.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                                .disabled(true)
+                            }
+                            if model.inbox!.currentPage < model.inbox!.pages {
+                                Button {
+                                    Task {
+                                        fetchingPage = true
+                                        let currentPage = model.inbox!.currentPage
+                                        model.inbox = nil
+                                        model.inbox = try! await model.api.requestInbox(page: currentPage + 1, type: .inbox)
+                                        fetchingPage = false
+                                    }
+                                } label: {
+                                    Image(systemName: "arrowtriangle.right.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                            } else {
+                                Button {} label: {
+                                    Image(systemName: "arrowtriangle.right.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                                .disabled(true)
+                            }
+                        }
+                    }
                 }
             }
             .onAppear {
@@ -44,8 +97,10 @@ struct InboxView: View {
                 Spacer()
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
-                Task {
-                    model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
+                if !fetchingPage {
+                    Task {
+                        model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
+                    }
                 }
             }
         } else {

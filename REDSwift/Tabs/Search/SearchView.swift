@@ -80,7 +80,7 @@ struct SearchView: View {
         .searchable(text: $search, prompt: "Search")
         .onSubmit(of: .search) {
             Task {
-                if apiKey != "" {
+                if apiKey != "" && !searching {
                     searching = true
                     switch model.selectionString {
                     case selections[0]:
