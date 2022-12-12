@@ -68,6 +68,5 @@ struct ContentView: View {
                     .frame(maxWidth: 300)
                     .padding(.vertical, 10)
             }
-        }
-    }
+        }    }
 }

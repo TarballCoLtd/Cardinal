@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import WhatsNewKit
 
 struct HomeView: View {
     @EnvironmentObject var model: REDAppModel
     @AppStorage("apiKey") var apiKey: String = ""
+    @AppStorage("atsDisabledWarningShown") var atsDisabledWarningShown: Bool = false
+    @State var atsDisabledWarningSheetPresented: Bool = false
     var body: some View {
         NavigationView {
             Group {
@@ -52,6 +55,16 @@ struct HomeView: View {
                                 .font(.headline)
                         }
                     }
+                    #if ATS_DISABLED
+                    .onAppear {
+                        if !atsDisabledWarningShown {
+                            atsDisabledWarningSheetPresented = true
+                        }
+                    }
+                    .sheet(isPresented: $atsDisabledWarningSheetPresented) {
+                        ATSDisabledSheet()
+                    }
+                    #endif
                 } else if apiKey != "" {
                     VStack {
                         Spacer()
@@ -67,7 +80,6 @@ struct HomeView: View {
                         Task { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                             model.announcements = try! await model.api.requestAnnouncements(perPage: 100)
                             model.announcements!.announcements.reverse()
-                            //model.announcements!.announcements = [model.announcements!.announcements.first!]
                         }
                     }
                 } else {

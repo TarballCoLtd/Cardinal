@@ -56,15 +56,15 @@ struct SearchView: View {
                         }
                     case selections[1]:
                         if model.currentArtistSearch != nil {
-                            ArtistResultsView()
+                            ArtistResultsView($searching, $currentTerm)
                         }
                     case selections[2]:
                         if model.currentRequestSearch != nil {
-                            RequestResultsView()
+                            RequestResultsView($searching, $currentTerm)
                         }
                     case selections[3]:
                         if model.currentUserSearch != nil {
-                            UserResultsView()
+                            UserResultsView($searching, $currentTerm)
                         }
                     default:
                         VStack {
