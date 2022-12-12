@@ -8,9 +8,9 @@
 import Foundation
 
 extension RedactedAPI {
-    public func requestRequestSearchResults(term: String) async throws -> RequestSearchResults {
+    public func requestRequestSearchResults(term: String, page: Int) async throws -> RequestSearchResults {
         guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=requests&search=\(encodedTerm)&page=\(page)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")

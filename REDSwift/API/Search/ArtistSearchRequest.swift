@@ -8,9 +8,9 @@
 import Foundation
 
 extension RedactedAPI {
-    public func requestArtistSearchResults(term: String) async throws -> TorrentSearchResults {
+    public func requestArtistSearchResults(term: String, page: Int) async throws -> TorrentSearchResults {
         guard let encodedTerm = term.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw RedactedAPIError.urlParseError }
-        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&artistname=\(encodedTerm)") else { throw RedactedAPIError.urlParseError }
+        guard let url = URL(string: "https://redacted.ch/ajax.php?action=browse&artistname=\(encodedTerm)&page=\(page)") else { throw RedactedAPIError.urlParseError }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(apiKey, forHTTPHeaderField: "Authorization")

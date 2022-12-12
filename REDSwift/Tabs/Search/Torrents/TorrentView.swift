@@ -37,7 +37,7 @@ struct TorrentView: View {
                         Spacer()
                     }
                 }
-                if torrent.media == "CD" {
+                if torrent.media == "CD" && torrent.format == "FLAC" {
                     SectionTitle("Log Score") {
                         HStack {
                             Text("\(torrent.logScore)%")

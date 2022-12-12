@@ -32,49 +32,51 @@ struct InboxView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
-                            if model.inbox!.currentPage > 1 {
-                                Button {
-                                    Task {
-                                        fetchingPage = true
-                                        let currentPage = model.inbox!.currentPage
-                                        model.inbox = nil
-                                        model.inbox = try! await model.api.requestInbox(page: currentPage - 1, type: .inbox)
-                                        fetchingPage = false
+                            if let inbox = model.inbox {
+                                if inbox.currentPage > 1 {
+                                    Button {
+                                        Task {
+                                            fetchingPage = true
+                                            let currentPage = inbox.currentPage
+                                            model.inbox = nil
+                                            model.inbox = try! await model.api.requestInbox(page: currentPage - 1, type: .inbox)
+                                            fetchingPage = false
+                                        }
+                                    } label: {
+                                        Image(systemName: "arrowtriangle.left.fill")
+                                            .resizable()
+                                            .scaledToFit()
                                     }
-                                } label: {
-                                    Image(systemName: "arrowtriangle.left.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                }
-                            } else {
-                                Button {} label: {
-                                    Image(systemName: "arrowtriangle.left.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                }
-                                .disabled(true)
-                            }
-                            if model.inbox!.currentPage < model.inbox!.pages {
-                                Button {
-                                    Task {
-                                        fetchingPage = true
-                                        let currentPage = model.inbox!.currentPage
-                                        model.inbox = nil
-                                        model.inbox = try! await model.api.requestInbox(page: currentPage + 1, type: .inbox)
-                                        fetchingPage = false
+                                } else {
+                                    Button {} label: {
+                                        Image(systemName: "arrowtriangle.left.fill")
+                                            .resizable()
+                                            .scaledToFit()
                                     }
-                                } label: {
-                                    Image(systemName: "arrowtriangle.right.fill")
-                                        .resizable()
-                                        .scaledToFit()
+                                    .disabled(true)
                                 }
-                            } else {
-                                Button {} label: {
-                                    Image(systemName: "arrowtriangle.right.fill")
-                                        .resizable()
-                                        .scaledToFit()
+                                if inbox.currentPage < inbox.pages {
+                                    Button {
+                                        Task {
+                                            fetchingPage = true
+                                            let currentPage = inbox.currentPage
+                                            model.inbox = nil
+                                            model.inbox = try! await model.api.requestInbox(page: currentPage + 1, type: .inbox)
+                                            fetchingPage = false
+                                        }
+                                    } label: {
+                                        Image(systemName: "arrowtriangle.right.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
+                                } else {
+                                    Button {} label: {
+                                        Image(systemName: "arrowtriangle.right.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
+                                    .disabled(true)
                                 }
-                                .disabled(true)
                             }
                         }
                     }

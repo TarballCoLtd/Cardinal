@@ -11,6 +11,7 @@ struct SearchView: View {
     @EnvironmentObject var model: REDAppModel
     @AppStorage("apiKey") var apiKey: String = ""
     @State var search: String = ""
+    @State var currentTerm: String = ""
     @State var searching: Bool = false
     let selections: [String] = [
         "Torrents",
@@ -51,7 +52,7 @@ struct SearchView: View {
                     switch model.selectionString {
                     case selections[0]:
                         if model.currentTorrentSearch != nil {
-                            TorrentResultsView()
+                            TorrentResultsView($searching, $currentTerm)
                         }
                     case selections[1]:
                         if model.currentArtistSearch != nil {
@@ -82,24 +83,25 @@ struct SearchView: View {
             Task {
                 if apiKey != "" && !searching {
                     searching = true
+                    currentTerm = search
                     switch model.selectionString {
                     case selections[0]:
-                        model.currentTorrentSearch = try! await model.api.requestTorrentSearchResults(term: search)
+                        model.currentTorrentSearch = try! await model.api.requestTorrentSearchResults(term: search, page: 1)
                         model.currentTorrentSearch!.groups.sort {
                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                         }
                         searching = false
                     case selections[1]:
-                        model.currentArtistSearch = try! await model.api.requestArtistSearchResults(term: search)
+                        model.currentArtistSearch = try! await model.api.requestArtistSearchResults(term: search, page: 1)
                         model.currentArtistSearch!.groups.sort {
                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                         }
                         searching = false
                     case selections[2]:
-                        model.currentRequestSearch = try! await model.api.requestRequestSearchResults(term: search)
+                        model.currentRequestSearch = try! await model.api.requestRequestSearchResults(term: search, page: 1)
                         searching = false
                     case selections[3]:
-                        model.currentUserSearch = try! await model.api.requestUserSearchResults(term: search)
+                        model.currentUserSearch = try! await model.api.requestUserSearchResults(term: search, page: 1)
                         searching = false
                     default:
                         print("excuse me?")
