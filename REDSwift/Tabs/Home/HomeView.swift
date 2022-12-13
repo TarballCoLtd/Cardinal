@@ -58,6 +58,7 @@ struct HomeView: View {
                     #if ATS_DISABLED
                     .onAppear {
                         if !atsDisabledWarningShown {
+                            atsDisabledWarningShown = true
                             atsDisabledWarningSheetPresented = true
                         }
                     }
