@@ -13,6 +13,7 @@ struct HomeView: View {
     @AppStorage("apiKey") var apiKey: String = ""
     @AppStorage("atsDisabledWarningShown") var atsDisabledWarningShown: Bool = false
     @State var atsDisabledWarningSheetPresented: Bool = false
+    @State var erroredOut: Bool = false
     var body: some View {
         NavigationView {
             Group {
@@ -47,6 +48,14 @@ struct HomeView: View {
                                 }
                             }
                         }
+                        .refreshable {
+                            do {
+                                model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                                model.announcements!.announcements.reverse()
+                            } catch {
+                                erroredOut = true
+                            }
+                        }
                     }
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -66,6 +75,30 @@ struct HomeView: View {
                         ATSDisabledSheet()
                     }
                     #endif
+                } else if erroredOut { // TODO: add error SF symbol of some sort
+                    List {
+                        VStack {
+                            Spacer()
+                            Text("Error occurred while")
+                                .font(.title)
+                            Text("fetching announcements")
+                                .font(.title)
+                            Spacer()
+                                .frame(maxHeight: 20)
+                            Text("Pull to refresh.")
+                            Spacer()
+                        }
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 10)
+                    }
+                    .refreshable {
+                        do {
+                            model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                            model.announcements!.announcements.reverse()
+                        } catch {
+                            erroredOut = true
+                        }
+                    }
                 } else if apiKey != "" {
                     VStack {
                         Spacer()
@@ -79,8 +112,12 @@ struct HomeView: View {
                     }
                     .onAppear {
                         Task { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
-                            model.announcements = try! await model.api.requestAnnouncements(perPage: 100)
-                            model.announcements!.announcements.reverse()
+                            do {
+                                model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                                model.announcements!.announcements.reverse()
+                            } catch {
+                                erroredOut = true
+                            }
                         }
                     }
                 } else {

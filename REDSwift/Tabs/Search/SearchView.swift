@@ -18,8 +18,6 @@ struct SearchView: View {
         "Artists",
         "Requests",
         "Users",
-        "Collages",
-        "Test",
     ]
     var body: some View {
         NavigationView {
