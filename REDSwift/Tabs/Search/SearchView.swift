@@ -18,6 +18,8 @@ struct SearchView: View {
         "Artists",
         "Requests",
         "Users",
+        "Collages",
+        "Test",
     ]
     var body: some View {
         NavigationView {
@@ -68,10 +70,16 @@ struct SearchView: View {
                         }
                     default:
                         VStack {
+                            Spacer()
                             Text("You should not be seeing this!")
                                 .font(.title)
+                            Spacer()
+                                .frame(maxHeight: 20)
                             Text("Report this bug to the developer.")
+                            Spacer()
                         }
+                        .padding(.horizontal, 10)
+                        .multilineTextAlignment(.center)
                     }
                 }
                 Spacer()
