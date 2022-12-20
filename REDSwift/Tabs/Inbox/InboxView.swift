@@ -11,6 +11,7 @@ struct InboxView: View {
     @EnvironmentObject var model: REDAppModel
     @AppStorage("apiKey") var apiKey: String = ""
     @State var fetchingPage: Bool = false
+    @State var erroredOut: Bool = false
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -25,9 +26,13 @@ struct InboxView: View {
                 }
                 .navigationTitle("Inbox")
                 .refreshable {
-                    let currentPage = model.inbox!.currentPage
-                    model.inbox = nil
-                    model.inbox = try! await model.api.requestInbox(page: currentPage, type: .inbox)
+                    do {
+                        let currentPage = model.inbox!.currentPage
+                        model.inbox = nil
+                        model.inbox = try await model.api.requestInbox(page: currentPage, type: .inbox)
+                    } catch {
+                        erroredOut = true
+                    }
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -36,11 +41,15 @@ struct InboxView: View {
                                 if inbox.currentPage > 1 {
                                     Button {
                                         Task {
-                                            fetchingPage = true
-                                            let currentPage = inbox.currentPage
-                                            model.inbox = nil
-                                            model.inbox = try! await model.api.requestInbox(page: currentPage - 1, type: .inbox)
-                                            fetchingPage = false
+                                            do {
+                                                fetchingPage = true
+                                                let currentPage = inbox.currentPage
+                                                model.inbox = nil
+                                                model.inbox = try await model.api.requestInbox(page: currentPage - 1, type: .inbox)
+                                                fetchingPage = false
+                                            } catch {
+                                                erroredOut = true
+                                            }
                                         }
                                     } label: {
                                         Image(systemName: "arrowtriangle.left.fill")
@@ -58,11 +67,15 @@ struct InboxView: View {
                                 if inbox.currentPage < inbox.pages {
                                     Button {
                                         Task {
-                                            fetchingPage = true
-                                            let currentPage = inbox.currentPage
-                                            model.inbox = nil
-                                            model.inbox = try! await model.api.requestInbox(page: currentPage + 1, type: .inbox)
-                                            fetchingPage = false
+                                            do {
+                                                fetchingPage = true
+                                                let currentPage = inbox.currentPage
+                                                model.inbox = nil
+                                                model.inbox = try await model.api.requestInbox(page: currentPage + 1, type: .inbox)
+                                                fetchingPage = false
+                                            } catch {
+                                                erroredOut = true
+                                            }
                                         }
                                     } label: {
                                         Image(systemName: "arrowtriangle.right.fill")
@@ -101,8 +114,20 @@ struct InboxView: View {
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 if !fetchingPage {
                     Task {
-                        model.inbox = try! await model.api.requestInbox(page: 1, type: .inbox)
+                        do {
+                            model.inbox = try await model.api.requestInbox(page: 1, type: .inbox)
+                        } catch {
+                            erroredOut = true
+                        }
                     }
+                }
+            }
+        } else if erroredOut {
+            RequestError {
+                do {
+                    model.inbox = try await model.api.requestInbox(page: 1, type: .inbox)
+                } catch {
+                    erroredOut = true
                 }
             }
         } else {

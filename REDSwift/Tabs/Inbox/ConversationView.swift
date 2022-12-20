@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConversationView: View {
     @EnvironmentObject var model: REDAppModel
+    @State var erroredOut: Bool = false
     var conversationId: Int
     init(_ conversationId: Int) {
         self.conversationId = conversationId
@@ -27,9 +28,24 @@ struct ConversationView: View {
                     MessageView(message)
                 }
             }
+            .refreshable {
+                do {
+                    model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                } catch {
+                    erroredOut = true
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Conversation")
+                }
+            }
+        } else if erroredOut {
+            RequestError {
+                do {
+                    model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                } catch {
+                    erroredOut = true
                 }
             }
         } else {
@@ -45,7 +61,11 @@ struct ConversationView: View {
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
-                    model.conversations[conversationId] = try! await model.api.requestConversation(conversationId)
+                    do {
+                        model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                    } catch {
+                        erroredOut = true
+                    }
                 }
             }
         }

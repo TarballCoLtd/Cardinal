@@ -24,7 +24,11 @@ struct SettingsView: View {
                     .font(.caption)
             }
             Section("About") {
-                Text("App Version: \(version ?? "Error")")
+                HStack {
+                    Text("App Version:")
+                    Spacer()
+                    Text("\(version ?? "Error") (\(build ?? "0"))")
+                }
             }
         }
         .navigationTitle("Settings")

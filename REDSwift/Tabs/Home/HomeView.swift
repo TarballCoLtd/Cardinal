@@ -75,24 +75,10 @@ struct HomeView: View {
                         ATSDisabledSheet()
                     }
                     #endif
-                } else if erroredOut { // TODO: add error SF symbol of some sort
-                    List {
-                        VStack {
-                            Spacer()
-                            Text("Error occurred while")
-                                .font(.title)
-                            Text("fetching announcements")
-                                .font(.title)
-                            Spacer()
-                                .frame(maxHeight: 20)
-                            Text("Pull to refresh.")
-                            Spacer()
-                        }
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 10)
-                    }
-                    .refreshable {
+                } else if erroredOut {
+                    RequestError {
                         do {
+                            model.announcements = nil
                             model.announcements = try await model.api.requestAnnouncements(perPage: 100)
                             model.announcements!.announcements.reverse()
                         } catch {
@@ -113,6 +99,7 @@ struct HomeView: View {
                     .onAppear {
                         Task { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                             do {
+                                model.announcements = nil
                                 model.announcements = try await model.api.requestAnnouncements(perPage: 100)
                                 model.announcements!.announcements.reverse()
                             } catch {

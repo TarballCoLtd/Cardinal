@@ -102,6 +102,8 @@
 		03E4FCAC293D878A00C7A6B0 /* ConversationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E4FCAB293D878A00C7A6B0 /* ConversationPreview.swift */; };
 		03E4FCAE293D8EF300C7A6B0 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E4FCAD293D8EF300C7A6B0 /* ConversationView.swift */; };
 		03E4FCB1293D8F8600C7A6B0 /* ConversationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E4FCB0293D8F8600C7A6B0 /* ConversationRequest.swift */; };
+		03F3A57B2952449B00DF40EE /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3A57A2952449B00DF40EE /* RequestError.swift */; };
+		03F3A57C2952449B00DF40EE /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F3A57A2952449B00DF40EE /* RequestError.swift */; };
 		03F9AC44293AB51800D32548 /* UserProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC43293AB51800D32548 /* UserProfileRequest.swift */; };
 		03F9AC48293AD44B00D32548 /* PersonalProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC47293AD44B00D32548 /* PersonalProfileRequest.swift */; };
 		03F9AC4A293AE18D00D32548 /* AnnouncementsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F9AC49293AE18D00D32548 /* AnnouncementsRequest.swift */; };
@@ -156,6 +158,7 @@
 		03E4FCAB293D878A00C7A6B0 /* ConversationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationPreview.swift; sourceTree = "<group>"; };
 		03E4FCAD293D8EF300C7A6B0 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
 		03E4FCB0293D8F8600C7A6B0 /* ConversationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationRequest.swift; sourceTree = "<group>"; };
+		03F3A57A2952449B00DF40EE /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		03F9AC43293AB51800D32548 /* UserProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRequest.swift; sourceTree = "<group>"; };
 		03F9AC47293AD44B00D32548 /* PersonalProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalProfileRequest.swift; sourceTree = "<group>"; };
 		03F9AC49293AE18D00D32548 /* AnnouncementsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementsRequest.swift; sourceTree = "<group>"; };
@@ -329,6 +332,7 @@
 				0387CA10293C864500864B63 /* RectangleOverlay.swift */,
 				0387CA0C293C844900864B63 /* SectionTitle.swift */,
 				03314C3D2941462B00916A4B /* AccentCapsule.swift */,
+				03F3A57A2952449B00DF40EE /* RequestError.swift */,
 			);
 			path = "Generic Views";
 			sourceTree = "<group>";
@@ -544,6 +548,7 @@
 				030B852C293A8B6B00661674 /* ContentView.swift in Sources */,
 				030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */,
 				036CD52A2940180C0053701C /* ArtistSearchRequest.swift in Sources */,
+				03F3A57B2952449B00DF40EE /* RequestError.swift in Sources */,
 				0387CA11293C864500864B63 /* RectangleOverlay.swift in Sources */,
 				036CD528293FFFA40053701C /* TorrentView.swift in Sources */,
 				03314C3E2941462B00916A4B /* AccentCapsule.swift in Sources */,
@@ -587,6 +592,7 @@
 				032C29A82946E8C600E2DBD6 /* NotificationsRequest.swift in Sources */,
 				032C29A92946E8C600E2DBD6 /* HomeView.swift in Sources */,
 				032C29AA2946E8C600E2DBD6 /* InboxView.swift in Sources */,
+				03F3A57C2952449B00DF40EE /* RequestError.swift in Sources */,
 				032C29AB2946E8C600E2DBD6 /* TorrentResultsView.swift in Sources */,
 				032C29AC2946E8C600E2DBD6 /* PersonalInfo.swift in Sources */,
 				032C29AD2946E8C600E2DBD6 /* PersonalProfileView.swift in Sources */,
