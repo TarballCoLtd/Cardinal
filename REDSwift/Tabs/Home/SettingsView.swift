@@ -9,6 +9,12 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("apiKey") var apiKey: String = ""
+    let version: String?
+    let build: String?
+    init() {
+        version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+    }
     var body: some View {
         List {
             Section("Authentication") {
@@ -16,6 +22,9 @@ struct SettingsView: View {
                 Text("An API key can be created in your RED profile settings under Access Settings.")
                     .foregroundColor(.gray)
                     .font(.caption)
+            }
+            Section("About") {
+                Text("App Version: \(version ?? "Error")")
             }
         }
         .navigationTitle("Settings")

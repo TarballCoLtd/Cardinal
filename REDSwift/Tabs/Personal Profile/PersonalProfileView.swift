@@ -11,9 +11,9 @@ struct PersonalProfileView: View {
     @EnvironmentObject var model: REDAppModel
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("apiKey") var apiKey: String = ""
-    var body: some View {
+    var body: some View { // the padding in this whole thing makes me :cringeharold:
         if model.personalProfile != nil {
-            RefreshableScrollView { // the padding in this makes me :cringeharold:
+            RefreshableScrollView {
                 VStack {
                     HStack {
                         Spacer()
@@ -37,6 +37,7 @@ struct PersonalProfileView: View {
                         }
                         Spacer()
                     }
+                    .padding(.bottom, -5)
                     HStack {
                         Spacer()
                         Text("(\(model.personalProfile!.userClass))")
@@ -44,7 +45,7 @@ struct PersonalProfileView: View {
                             .foregroundColor(.gray)
                         Spacer()
                     }
-                    .padding(.top, 10)
+                    .padding(.top, -5)
                     Divider()
                 }
                 .padding(.horizontal, 20)
@@ -65,13 +66,6 @@ struct PersonalProfileView: View {
                     }
                     Spacer()
                 }
-                /*
-                SectionTitle(model.personalProfile!.profileText, .red, shouldUppercase: false) {
-                    Divider()
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                 */
                 SectionTitle("Statistics") {
                     PersonalStats()
                 }
