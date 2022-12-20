@@ -44,6 +44,7 @@ struct UserProfileView: View {
                     }
                     Spacer()
                 }
+                .padding(.bottom, -5)
                 HStack {
                     Spacer()
                     Text("(\(profile.userClass))")
@@ -51,6 +52,7 @@ struct UserProfileView: View {
                         .foregroundColor(.gray)
                     Spacer()
                 }
+                .padding(.top, -5)
                 Divider()
             }
             .padding(.horizontal, 20)
