@@ -13,6 +13,7 @@ In no particular order:
 - [ ] Home tab that isn't horribly laggy
 - [ ] User profile bios
 - [ ] User profile albums
+- [ ] Proper announcement rendering (unlikely)
 - Other things I probably forgot
 
 ## FAQ
