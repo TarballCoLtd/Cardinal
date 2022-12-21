@@ -14,6 +14,7 @@ In no particular order:
 - [ ] User profile bios
 - [ ] User profile albums
 - [ ] Proper announcement rendering (unlikely)
+- [ ] Downloading torrent files
 - Other things I probably forgot
 
 ## FAQ
