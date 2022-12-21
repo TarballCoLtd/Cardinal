@@ -43,3 +43,7 @@ I'm always available to chat, whether about this app or not, on RED. Don't hesit
 > Will this work on (insert tracker here)?
 
 I don't know. If it uses Gazelle, it may, but no promises. It's up to you to tweak the code accordingly.
+
+> How can I build this myself?
+
+Clone, open in Xcode, set your development team in the project settings, `Product -> Archive`.
