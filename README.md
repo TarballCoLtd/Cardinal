@@ -47,3 +47,7 @@ I don't know. If it uses Gazelle, it may, but no promises. It's up to you to twe
 > How can I build this myself?
 
 Clone, open in Xcode, set your development team in the project settings, `Product -> Archive`.
+
+> Why do I keep getting notifications for a new announcement?
+
+This is a bug with the RED API. I cannot fix it. It has already been reported on the forum.
