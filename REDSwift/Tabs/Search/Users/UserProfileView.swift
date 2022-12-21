@@ -15,6 +15,7 @@ struct UserProfileView: View {
     @State var profile: UserProfile?
     @State var avatarExists: Bool = true
     @State var pfp: Image?
+    @State var erroredOut: Bool = false
     init(_ result: UserSearchResult) {
         self._result = State(initialValue: result)
     }
@@ -119,10 +120,14 @@ struct UserProfileView: View {
         }
         .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
             Task {
-                profile = try! await model.api.requestUserProfile(user: result.userId)
-                avatarExists = profile!.avatar != ""
-                if avatarExists {
-                    pfp = try! await model.api.requestProfilePicture(profile!.avatar)
+                do {
+                    profile = try await model.api.requestUserProfile(user: result.userId)
+                    avatarExists = profile!.avatar != ""
+                    if avatarExists {
+                        pfp = try await model.api.requestProfilePicture(profile!.avatar)
+                    }
+                } catch {
+                    erroredOut = true
                 }
             }
         }
@@ -135,9 +140,13 @@ struct UserProfileView: View {
                 sections
                 Spacer()
             } onRefresh: {
-                let profile = try! await model.api.requestPersonalProfile()
-                model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
-                model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                do {
+                    let profile = try await model.api.requestPersonalProfile()
+                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                } catch {
+                    erroredOut = true
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -149,6 +158,18 @@ struct UserProfileView: View {
             }
         } else if apiKey != "" {
             loading
+        } else if erroredOut {
+            RequestError {
+                do {
+                    profile = try await model.api.requestUserProfile(user: result.userId)
+                    avatarExists = profile!.avatar != ""
+                    if avatarExists {
+                        pfp = try await model.api.requestProfilePicture(profile!.avatar)
+                    }
+                } catch {
+                    erroredOut = true
+                }
+            }
         } else {
             VStack {
                 Text("API Key Not Set")

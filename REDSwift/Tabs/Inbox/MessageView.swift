@@ -25,7 +25,9 @@ struct MessageView: View {
             HStack {
                 Text(html ?? "")
                     .onAppear { // shits itself for some reason unless i do this bullshit (im going insane)
-                        html = message.body.htmlToString()
+                        Task {
+                            html = message.body.htmlToString()
+                        }
                     }
                 Spacer()
             }

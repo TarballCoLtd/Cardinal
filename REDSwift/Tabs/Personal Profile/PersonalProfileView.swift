@@ -11,6 +11,7 @@ struct PersonalProfileView: View {
     @EnvironmentObject var model: REDAppModel
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("apiKey") var apiKey: String = ""
+    @State var erroredOut: Bool = false
     var body: some View { // the padding in this whole thing makes me :cringeharold:
         if model.personalProfile != nil {
             RefreshableScrollView {
@@ -84,9 +85,13 @@ struct PersonalProfileView: View {
                 .padding(10)
                 Spacer()
             } onRefresh: {
-                let profile = try! await model.api.requestPersonalProfile()
-                model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
-                model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                do {
+                    let profile = try await model.api.requestPersonalProfile()
+                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                } catch {
+                    erroredOut = true
+                }
             }
         } else if apiKey != "" {
             VStack {
@@ -101,9 +106,23 @@ struct PersonalProfileView: View {
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
-                    let profile = try! await model.api.requestPersonalProfile()
-                    model.personalProfile = try! await model.api.requestUserProfile(user: profile.id)
-                    model.pfp = try! await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                    do {
+                        let profile = try await model.api.requestPersonalProfile()
+                        model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                        model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                    } catch {
+                        erroredOut = true
+                    }
+                }
+            }
+        } else if erroredOut {
+            RequestError {
+                do {
+                    let profile = try await model.api.requestPersonalProfile()
+                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                } catch {
+                    erroredOut = true
                 }
             }
         } else {

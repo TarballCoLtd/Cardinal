@@ -13,6 +13,10 @@ struct RequestError: View {
     init(onRefresh: @escaping () async -> Void) {
         self.onRefresh = onRefresh
     }
+    
+    init() {
+        self.onRefresh = {}
+    }
 
     var body: some View { // TODO: add error SF symbol of some sort
         RefreshableScrollView {

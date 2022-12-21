@@ -11,6 +11,7 @@ struct UserResultsView: View {
     @EnvironmentObject var model: REDAppModel
     @Binding var searching: Bool
     @Binding var search: String
+    @State var erroredOut: Bool = false
     init(_ searching: Binding<Bool>, _ search: Binding<String>) {
         self._searching = searching
         self._search = search
@@ -28,9 +29,14 @@ struct UserResultsView: View {
                             .padding(.horizontal, 10)
                             .onTapGesture {
                                 Task {
-                                    searching = true
-                                    model.currentUserSearch = try! await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
-                                    searching = false
+                                    do {
+                                        searching = true
+                                        model.currentUserSearch = try await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        searching = false
+                                    } catch {
+                                        erroredOut = true
+                                        searching = false
+                                    }
                                 }
                             }
                     } else {
@@ -53,9 +59,14 @@ struct UserResultsView: View {
                             .padding(.horizontal, 10)
                             .onTapGesture {
                                 Task {
-                                    searching = true
-                                    model.currentUserSearch = try! await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
-                                    searching = false
+                                    do {
+                                        searching = true
+                                        model.currentUserSearch = try await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        searching = false
+                                    } catch {
+                                        erroredOut = true
+                                        searching = false
+                                    }
                                 }
                             }
                     } else {
@@ -66,6 +77,8 @@ struct UserResultsView: View {
                             .frame(maxWidth: 20)
                             .padding(.horizontal, 10)
                     }
+                } else if erroredOut {
+                    RequestError()
                 }
             }
         }

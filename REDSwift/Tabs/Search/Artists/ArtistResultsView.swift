@@ -11,6 +11,7 @@ struct ArtistResultsView: View {
     @EnvironmentObject var model: REDAppModel
     @Binding var searching: Bool
     @Binding var search: String
+    @State var erroredOut: Bool = false
     init(_ searching: Binding<Bool>, _ search: Binding<String>) {
         self._searching = searching
         self._search = search
@@ -28,12 +29,17 @@ struct ArtistResultsView: View {
                             .padding(.horizontal, 10)
                             .onTapGesture {
                                 Task {
-                                    searching = true
-                                    model.currentArtistSearch = try! await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
-                                    model.currentArtistSearch!.groups.sort {
-                                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                                    do {
+                                        searching = true
+                                        model.currentArtistSearch = try await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        model.currentArtistSearch!.groups.sort {
+                                            ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                                        }
+                                        searching = false
+                                    } catch {
+                                        erroredOut = true
+                                        searching = false
                                     }
-                                    searching = false
                                 }
                             }
                     } else {
@@ -56,12 +62,17 @@ struct ArtistResultsView: View {
                             .padding(.horizontal, 10)
                             .onTapGesture {
                                 Task {
-                                    searching = true
-                                    model.currentArtistSearch = try! await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
-                                    model.currentArtistSearch!.groups.sort {
-                                        ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                                    do {
+                                        searching = true
+                                        model.currentArtistSearch = try await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        model.currentArtistSearch!.groups.sort {
+                                            ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
+                                        }
+                                        searching = false
+                                    } catch {
+                                        erroredOut = true
+                                        searching = false
                                     }
-                                    searching = false
                                 }
                             }
                     } else {
@@ -72,6 +83,8 @@ struct ArtistResultsView: View {
                             .frame(maxWidth: 20)
                             .padding(.horizontal, 10)
                     }
+                } else if erroredOut {
+                    RequestError()
                 }
             }
         }
