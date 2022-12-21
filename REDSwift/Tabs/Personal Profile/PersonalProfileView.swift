@@ -88,10 +88,10 @@ struct PersonalProfileView: View {
                 do {
                     let profile = try await model.api.requestPersonalProfile()
                     model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
-                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
                 } catch {
                     erroredOut = true
                 }
+                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
             }
         } else if apiKey != "" {
             VStack {
@@ -109,10 +109,10 @@ struct PersonalProfileView: View {
                     do {
                         let profile = try await model.api.requestPersonalProfile()
                         model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
-                        model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
                     } catch {
                         erroredOut = true
                     }
+                    model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
                 }
             }
         } else if erroredOut {
@@ -120,10 +120,10 @@ struct PersonalProfileView: View {
                 do {
                     let profile = try await model.api.requestPersonalProfile()
                     model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
-                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
                 } catch {
                     erroredOut = true
                 }
+                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
             }
         } else {
             VStack {

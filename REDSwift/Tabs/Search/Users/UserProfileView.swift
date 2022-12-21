@@ -123,11 +123,11 @@ struct UserProfileView: View {
                 do {
                     profile = try await model.api.requestUserProfile(user: result.userId)
                     avatarExists = profile!.avatar != ""
-                    if avatarExists {
-                        pfp = try await model.api.requestProfilePicture(profile!.avatar)
-                    }
                 } catch {
                     erroredOut = true
+                }
+                if avatarExists {
+                    pfp = try? await model.api.requestProfilePicture(profile!.avatar)
                 }
             }
         }
@@ -143,10 +143,10 @@ struct UserProfileView: View {
                 do {
                     let profile = try await model.api.requestPersonalProfile()
                     model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
-                    model.pfp = try await model.api.requestProfilePicture(model.personalProfile!.avatar)
                 } catch {
                     erroredOut = true
                 }
+                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -163,11 +163,11 @@ struct UserProfileView: View {
                 do {
                     profile = try await model.api.requestUserProfile(user: result.userId)
                     avatarExists = profile!.avatar != ""
-                    if avatarExists {
-                        pfp = try await model.api.requestProfilePicture(profile!.avatar)
-                    }
                 } catch {
                     erroredOut = true
+                }
+                if avatarExists {
+                    pfp = try? await model.api.requestProfilePicture(profile!.avatar)
                 }
             }
         } else {
