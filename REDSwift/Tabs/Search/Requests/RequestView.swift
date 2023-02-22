@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct RequestView: View {
     @State var request: Request

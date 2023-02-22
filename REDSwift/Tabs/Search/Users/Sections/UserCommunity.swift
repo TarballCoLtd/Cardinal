@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct UserCommunity: View {
     @State var profile: UserProfile

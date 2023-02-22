@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject var model: REDAppModel
     @AppStorage("apiKey") var apiKey: String = ""
     let version: String?
     let build: String?
@@ -32,5 +33,9 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .onChange(of: apiKey) { apiKey in
+            print("PEEPEE FART")
+            model.setAPIKey(apiKey)
+        }
     }
 }

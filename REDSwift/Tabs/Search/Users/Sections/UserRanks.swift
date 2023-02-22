@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct UserRanks: View {
     @State var profile: UserProfile

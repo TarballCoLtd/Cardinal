@@ -8,9 +8,11 @@
 import Foundation
 import SwiftUI
 import FloatingTabBar
+import GazelleKit
 
 class REDAppModel: ObservableObject {
-    @Published var api: RedactedAPI
+    @AppStorage("apiKey") var apiKey: String = ""
+    @Published var api: GazelleAPI?
     @Published var personalProfile: UserProfile?
     @Published var announcements: Announcements?
     @Published var parsedAnnouncements: [Int: String] = [:]
@@ -28,6 +30,12 @@ class REDAppModel: ObservableObject {
     @Published var selectionString: String = "Torrents"
     
     init() {
-        api = RedactedAPI()
+        if apiKey != "" {
+            setAPIKey(apiKey)
+        }
+    }
+    
+    func setAPIKey(_ apiKey: String) {
+        api = GazelleAPI(apiKey)
     }
 }

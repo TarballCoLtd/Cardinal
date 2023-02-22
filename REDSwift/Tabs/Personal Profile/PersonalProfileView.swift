@@ -86,12 +86,12 @@ struct PersonalProfileView: View {
                 Spacer()
             } onRefresh: {
                 do {
-                    let profile = try await model.api.requestPersonalProfile()
-                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    let profile = try await model.api!.requestPersonalProfile()
+                    model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
                 } catch {
                     erroredOut = true
                 }
-                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
             }
         } else if apiKey != "" {
             VStack {
@@ -107,23 +107,23 @@ struct PersonalProfileView: View {
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
                     do {
-                        let profile = try await model.api.requestPersonalProfile()
-                        model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                        let profile = try await model.api!.requestPersonalProfile()
+                        model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
                     } catch {
                         erroredOut = true
                     }
-                    model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                    model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
                 }
             }
         } else if erroredOut {
             RequestError {
                 do {
-                    let profile = try await model.api.requestPersonalProfile()
-                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    let profile = try await model.api!.requestPersonalProfile()
+                    model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
                 } catch {
                     erroredOut = true
                 }
-                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
             }
         } else {
             VStack {

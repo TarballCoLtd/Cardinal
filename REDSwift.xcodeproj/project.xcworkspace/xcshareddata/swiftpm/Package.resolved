@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "gazellekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tarballcoltd/gazellekit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "80e2a323043dd08b04ca43c04c46587a83c46eab"
+      }
+    },
+    {
       "identity" : "whatsnewkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SvenTiigi/WhatsNewKit",

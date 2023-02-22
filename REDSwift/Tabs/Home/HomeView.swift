@@ -50,7 +50,7 @@ struct HomeView: View {
                         }
                         .refreshable {
                             do {
-                                model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                                model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
                                 model.announcements!.announcements.reverse()
                             } catch {
                                 erroredOut = true
@@ -79,7 +79,7 @@ struct HomeView: View {
                     RequestError {
                         do {
                             model.announcements = nil
-                            model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                            model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
                             model.announcements!.announcements.reverse()
                         } catch {
                             erroredOut = true
@@ -100,7 +100,7 @@ struct HomeView: View {
                         Task { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                             do {
                                 model.announcements = nil
-                                model.announcements = try await model.api.requestAnnouncements(perPage: 100)
+                                model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
                                 model.announcements!.announcements.reverse()
                             } catch {
                                 erroredOut = true

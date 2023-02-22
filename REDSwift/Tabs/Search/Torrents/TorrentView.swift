@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct TorrentView: View {
     @EnvironmentObject var model: REDAppModel

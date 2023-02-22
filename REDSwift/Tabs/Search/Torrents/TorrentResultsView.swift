@@ -31,7 +31,7 @@ struct TorrentResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentTorrentSearch = try await model.api.requestTorrentSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        model.currentTorrentSearch = try await model.api!.requestTorrentSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
                                         model.currentTorrentSearch!.groups.sort {
                                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                                         }
@@ -64,7 +64,7 @@ struct TorrentResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentTorrentSearch = try await model.api.requestTorrentSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        model.currentTorrentSearch = try await model.api!.requestTorrentSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
                                         model.currentTorrentSearch!.groups.sort {
                                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                                         }

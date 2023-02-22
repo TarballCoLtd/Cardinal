@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct UserStats: View {
     let formatter = DateFormatter()

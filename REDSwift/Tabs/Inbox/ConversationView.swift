@@ -30,7 +30,7 @@ struct ConversationView: View {
             }
             .refreshable {
                 do {
-                    model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                    model.conversations[conversationId] = try await model.api!.requestConversation(conversationId)
                 } catch {
                     erroredOut = true
                 }
@@ -43,7 +43,7 @@ struct ConversationView: View {
         } else if erroredOut {
             RequestError {
                 do {
-                    model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                    model.conversations[conversationId] = try await model.api!.requestConversation(conversationId)
                 } catch {
                     erroredOut = true
                 }
@@ -62,7 +62,7 @@ struct ConversationView: View {
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
                 Task {
                     do {
-                        model.conversations[conversationId] = try await model.api.requestConversation(conversationId)
+                        model.conversations[conversationId] = try await model.api!.requestConversation(conversationId)
                     } catch {
                         erroredOut = true
                     }

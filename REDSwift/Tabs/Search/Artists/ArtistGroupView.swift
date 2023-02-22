@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct ArtistGroupView: View {
     @State var group: TorrentGroup

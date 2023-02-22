@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct ConversationPreview: View {
     @StateObject var message: InboxConversation

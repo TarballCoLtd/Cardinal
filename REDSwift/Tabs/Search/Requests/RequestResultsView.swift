@@ -32,7 +32,7 @@ struct RequestResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentRequestSearch = try await model.api.requestRequestSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        model.currentRequestSearch = try await model.api!.requestRequestSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
                                         searching = false
                                     } catch {
                                         erroredOut = true
@@ -62,7 +62,7 @@ struct RequestResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentRequestSearch = try await model.api.requestRequestSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        model.currentRequestSearch = try await model.api!.requestRequestSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
                                         searching = false
                                     } catch {
                                         erroredOut = true

@@ -31,7 +31,7 @@ struct ArtistResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentArtistSearch = try await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        model.currentArtistSearch = try await model.api!.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
                                         model.currentArtistSearch!.groups.sort {
                                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                                         }
@@ -64,7 +64,7 @@ struct ArtistResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentArtistSearch = try await model.api.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        model.currentArtistSearch = try await model.api!.requestArtistSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
                                         model.currentArtistSearch!.groups.sort {
                                             ($0.artist ?? "").caseInsensitiveCompare(search) == .orderedSame && ($1.artist ?? "").caseInsensitiveCompare(search) != .orderedSame
                                         }

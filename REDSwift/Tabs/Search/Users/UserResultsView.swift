@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct UserResultsView: View {
     @EnvironmentObject var model: REDAppModel
@@ -31,7 +32,7 @@ struct UserResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentUserSearch = try await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
+                                        model.currentUserSearch = try await model.api!.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) - 1)
                                         searching = false
                                     } catch {
                                         erroredOut = true
@@ -61,7 +62,7 @@ struct UserResultsView: View {
                                 Task {
                                     do {
                                         searching = true
-                                        model.currentUserSearch = try await model.api.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
+                                        model.currentUserSearch = try await model.api!.requestUserSearchResults(term: search, page: (currentSearch.currentPage ?? 0) + 1)
                                         searching = false
                                     } catch {
                                         erroredOut = true

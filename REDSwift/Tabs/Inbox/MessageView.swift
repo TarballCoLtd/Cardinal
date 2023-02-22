@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct MessageView: View {
     let message: ConversationMessage

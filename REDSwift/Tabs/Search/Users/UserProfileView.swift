@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct UserProfileView: View {
     @EnvironmentObject var model: REDAppModel
@@ -121,13 +122,13 @@ struct UserProfileView: View {
         .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
             Task {
                 do {
-                    profile = try await model.api.requestUserProfile(user: result.userId)
+                    profile = try await model.api!.requestUserProfile(user: result.userId)
                     avatarExists = profile!.avatar != ""
                 } catch {
                     erroredOut = true
                 }
                 if avatarExists {
-                    pfp = try? await model.api.requestProfilePicture(profile!.avatar)
+                    pfp = try? await model.api!.requestProfilePicture(profile!.avatar)
                 }
             }
         }
@@ -141,12 +142,12 @@ struct UserProfileView: View {
                 Spacer()
             } onRefresh: {
                 do {
-                    let profile = try await model.api.requestPersonalProfile()
-                    model.personalProfile = try await model.api.requestUserProfile(user: profile.id)
+                    let profile = try await model.api!.requestPersonalProfile()
+                    model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
                 } catch {
                     erroredOut = true
                 }
-                model.pfp = try? await model.api.requestProfilePicture(model.personalProfile!.avatar)
+                model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -161,13 +162,13 @@ struct UserProfileView: View {
         } else if erroredOut {
             RequestError {
                 do {
-                    profile = try await model.api.requestUserProfile(user: result.userId)
+                    profile = try await model.api!.requestUserProfile(user: result.userId)
                     avatarExists = profile!.avatar != ""
                 } catch {
                     erroredOut = true
                 }
                 if avatarExists {
-                    pfp = try? await model.api.requestProfilePicture(profile!.avatar)
+                    pfp = try? await model.api!.requestProfilePicture(profile!.avatar)
                 }
             }
         } else {

@@ -29,7 +29,7 @@ struct InboxView: View {
                     do {
                         let currentPage = model.inbox!.currentPage
                         model.inbox = nil
-                        model.inbox = try await model.api.requestInbox(page: currentPage, type: .inbox)
+                        model.inbox = try await model.api!.requestInbox(page: currentPage, type: .inbox)
                     } catch {
                         erroredOut = true
                     }
@@ -45,7 +45,7 @@ struct InboxView: View {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
                                                 model.inbox = nil
-                                                model.inbox = try await model.api.requestInbox(page: currentPage - 1, type: .inbox)
+                                                model.inbox = try await model.api!.requestInbox(page: currentPage - 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
                                                 erroredOut = true
@@ -71,7 +71,7 @@ struct InboxView: View {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
                                                 model.inbox = nil
-                                                model.inbox = try await model.api.requestInbox(page: currentPage + 1, type: .inbox)
+                                                model.inbox = try await model.api!.requestInbox(page: currentPage + 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
                                                 erroredOut = true
@@ -115,7 +115,7 @@ struct InboxView: View {
                 if !fetchingPage {
                     Task {
                         do {
-                            model.inbox = try await model.api.requestInbox(page: 1, type: .inbox)
+                            model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
                         } catch {
                             erroredOut = true
                         }
@@ -125,7 +125,7 @@ struct InboxView: View {
         } else if erroredOut {
             RequestError {
                 do {
-                    model.inbox = try await model.api.requestInbox(page: 1, type: .inbox)
+                    model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
                 } catch {
                     erroredOut = true
                 }
