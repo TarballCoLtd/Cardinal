@@ -15,6 +15,8 @@ In no particular order:
 - [ ] User profile albums
 - [ ] Proper announcement rendering (unlikely)
 - [ ] Downloading torrent files
+- [ ] Swipe to change pages
+- [ ] 
 - Other things I probably forgot
 
 ## FAQ
@@ -43,7 +45,7 @@ I'm always available to chat, whether about this app or not, on RED. Don't hesit
 
 > Will this work on (insert tracker here)?
 
-I don't know. If it uses Gazelle, it may, but no promises. It's up to you to tweak the code accordingly.
+I don't know. If it uses Gazelle, it may, but no promises. It's up to you to tweak the code accordingly. If you have a request for support for a specific tracker, leave it in the issues tab.
 
 > How can I build this myself?
 
