@@ -10,7 +10,7 @@ import SwiftUI
 import FloatingTabBar
 import GazelleKit
 
-class REDAppModel: ObservableObject {
+class CardinalModel: ObservableObject {
     @AppStorage("apiKey") var apiKey: String = ""
     @Published var api: GazelleAPI?
     @Published var personalProfile: UserProfile?

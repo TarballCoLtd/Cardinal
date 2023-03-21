@@ -9,7 +9,7 @@ import SwiftUI
 import FloatingTabBar
 
 struct ContentView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @State var viewIndex: Int = 0
     @State var tabBarItems: [BottomBarItem] = [
         BottomBarItem(icon: "house", color: .iconColor),

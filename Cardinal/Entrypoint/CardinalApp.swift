@@ -8,8 +8,8 @@
 import SwiftUI
 
 @main
-struct REDSwiftApp: App {
-    @StateObject var model = REDAppModel()
+struct CardinalApp: App {
+    @StateObject var model = CardinalModel()
     var body: some Scene {
         WindowGroup {
             ContentView()
