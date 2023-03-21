@@ -21,30 +21,13 @@ struct HomeView: View {
                     VStack { // this VStack has no purpose other than to trigger a SwiftUI bug that makes the List collapsible only if its embedded in a VStack
                         List {
                             ForEach(model.announcements!.announcements) { announcement in
-                                Section(announcement.title) {
-                                    if let time = announcement.time {
-                                        SectionTitle("Posted") {
-                                            HStack {
-                                                Text(time.timeAgo)
-                                                Spacer()
-                                            }
-                                        }
-                                    }
-                                    if let parsed = model.parsedAnnouncements[announcement.announcementId] {
-                                        Text(parsed)
-                                    } else {
-                                        HStack {
-                                            Spacer()
-                                            ProgressView()
-                                                .progressViewStyle(CircularProgressViewStyle())
-                                            Spacer()
-                                        }
-                                        .onAppear {
-                                            Task {
-                                                model.parsedAnnouncements[announcement.announcementId] = announcement.body.htmlToString()
-                                            }
-                                        }
-                                    }
+                                NavigationLink {
+                                    AnnouncementView(announcement)
+                                } label: {
+                                    Text(announcement.title)
+                                        .font(.caption)
+                                        //.foregroundColor(.gray)
+                                        .bold()
                                 }
                             }
                         }

@@ -82,7 +82,7 @@ func pow(_ x: Int, _ y: Int) -> Int {
 
 extension UserProfile {
     public var calcRatio: Float {
-        var ret = Float(uploaded ?? 0) / Float(downloaded ?? 0)
+        let ret = Float(uploaded ?? 0) / Float(downloaded ?? 0)
         return floorf(ret * 100.0) / 100.0
     }
 }
