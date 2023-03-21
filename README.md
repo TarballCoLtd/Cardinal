@@ -16,7 +16,6 @@ In no particular order:
 - [ ] Proper announcement rendering (unlikely)
 - [ ] Downloading torrent files
 - [ ] Swipe to change pages
-- [ ] 
 - Other things I probably forgot
 
 ## FAQ
