@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @AppStorage("apiKey") var apiKey: String = ""
     let version: String?
     let build: String?

@@ -9,7 +9,7 @@ import SwiftUI
 import GazelleKit
 
 struct UserProfileView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("apiKey") var apiKey: String = ""
     @State var result: UserSearchResult

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @AppStorage("apiKey") var apiKey: String = ""
     @State var search: String = ""
     @State var currentTerm: String = ""

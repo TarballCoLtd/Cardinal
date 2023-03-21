@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConversationView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @State var erroredOut: Bool = false
     var conversationId: Int
     init(_ conversationId: Int) {

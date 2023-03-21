@@ -9,7 +9,7 @@ import SwiftUI
 import WhatsNewKit
 
 struct HomeView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @AppStorage("apiKey") var apiKey: String = ""
     @AppStorage("atsDisabledWarningShown") var atsDisabledWarningShown: Bool = false
     @State var atsDisabledWarningSheetPresented: Bool = false

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RequestResultsView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @Binding var searching: Bool
     @Binding var search: String
     @State var erroredOut: Bool = false

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PersonalProfileView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("apiKey") var apiKey: String = ""
     @State var erroredOut: Bool = false

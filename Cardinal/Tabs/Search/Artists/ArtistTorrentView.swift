@@ -9,7 +9,7 @@ import SwiftUI
 import GazelleKit
 
 struct ArtistTorrentView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @State var group: TorrentGroup
     @State var torrent: Torrent
     @State var searchSizeAlert: Bool = false

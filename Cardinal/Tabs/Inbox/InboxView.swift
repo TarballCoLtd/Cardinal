@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InboxView: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     @AppStorage("apiKey") var apiKey: String = ""
     @State var fetchingPage: Bool = false
     @State var erroredOut: Bool = false

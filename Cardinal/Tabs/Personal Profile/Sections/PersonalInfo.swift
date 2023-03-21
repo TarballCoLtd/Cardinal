@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PersonalInfo: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     var body: some View {
         RectangleOverlay {
             VStack {

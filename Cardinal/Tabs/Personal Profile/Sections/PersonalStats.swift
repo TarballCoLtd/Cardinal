@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct PersonalStats: View {
-    @EnvironmentObject var model: REDAppModel
+    @EnvironmentObject var model: CardinalModel
     let formatter = DateFormatter()
     init() {
         formatter.dateStyle = .short
@@ -39,7 +40,13 @@ struct PersonalStats: View {
                 HStack {
                     Text("Ratio:")
                     Spacer()
-                    Text(String(format: "%.2f", model.personalProfile!.ratio!))
+                    if model.personalProfile!.calcRatio < model.personalProfile!.requiredRatio! {
+                        Text(String(format: "%.2f", model.personalProfile!.calcRatio))
+                            .foregroundColor(.red)
+                            .bold()
+                    } else {
+                        Text(String(format: "%.2f", model.personalProfile!.calcRatio))
+                    }
                 }
                 HStack {
                     Text("Required Ratio:")
@@ -71,4 +78,11 @@ extension Int {
 
 func pow(_ x: Int, _ y: Int) -> Int {
     return Int(pow(Double(x), Double(y)))
+}
+
+extension UserProfile {
+    public var calcRatio: Float {
+        var ret = Float(uploaded!) / Float(downloaded!)
+        return floorf(ret * 100.0) / 100.0
+    }
 }

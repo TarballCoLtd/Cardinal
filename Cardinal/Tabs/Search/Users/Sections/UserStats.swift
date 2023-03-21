@@ -49,7 +49,13 @@ struct UserStats: View {
                         HStack {
                             Text("Ratio:")
                             Spacer()
-                            Text(String(format: "%.2f", ratio))
+                            if model.personalProfile!.calcRatio < model.personalProfile!.requiredRatio! {
+                                Text(String(format: "%.2f", ratio))
+                                    .foregroundColor(.red)
+                                    .bold()
+                            } else {
+                                Text(String(format: "%.2f", ratio))
+                            }
                         }
                     }
                 }
