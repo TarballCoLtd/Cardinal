@@ -49,21 +49,25 @@ struct UserStats: View {
                         HStack {
                             Text("Ratio:")
                             Spacer()
-                            if model.personalProfile!.calcRatio < model.personalProfile!.requiredRatio! {
-                                Text(String(format: "%.2f", ratio))
-                                    .foregroundColor(.red)
-                                    .bold()
+                            if let required = profile.requiredRatio {
+                                if profile.calcRatio < required {
+                                    Text(String(format: "%.2f", ratio))
+                                        .foregroundColor(.red)
+                                        .bold()
+                                } else {
+                                    Text(String(format: "%.2f", ratio))
+                                }
                             } else {
                                 Text(String(format: "%.2f", ratio))
                             }
                         }
                     }
                 }
-                if let requiredRatio = profile.requiredRatio {
+                if let required = profile.requiredRatio {
                     HStack {
                         Text("Required Ratio:")
                         Spacer()
-                        Text(String(format: "%.2f", requiredRatio))
+                        Text(String(format: "%.2f", required))
                     }
                 }
             }
