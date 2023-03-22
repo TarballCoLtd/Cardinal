@@ -20,7 +20,7 @@ struct SettingsView: View {
         List {
             Section("Authentication") {
                 SecureField("API Key", text: $apiKey)
-                Text("An API key can be created in your RED profile settings under Access Settings.")
+                Text("An API key can be created in your RED profile settings under Access Settings. Be sure to only select permissions you're comfortable with this app having. Do not share your API key with anyone under any circumstances.")
                     .foregroundColor(.gray)
                     .font(.caption)
             }

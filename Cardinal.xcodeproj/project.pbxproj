@@ -240,8 +240,8 @@
 		033DF7F72940F8D7002C36F6 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				033DF7F82940F8ED002C36F6 /* RequestResultsView.swift */,
 				0344023D29411E3100FDDED7 /* RequestView.swift */,
+				033DF7F82940F8ED002C36F6 /* RequestResultsView.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -259,9 +259,9 @@
 		036CD534294038290053701C /* Artists */ = {
 			isa = PBXGroup;
 			children = (
-				036CD52B29401ADD0053701C /* ArtistResultsView.swift */,
 				03314C3F29416DFA00916A4B /* ArtistGroupView.swift */,
 				03314C4129416E1800916A4B /* ArtistTorrentView.swift */,
+				036CD52B29401ADD0053701C /* ArtistResultsView.swift */,
 			);
 			path = Artists;
 			sourceTree = "<group>";

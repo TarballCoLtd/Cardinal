@@ -102,6 +102,9 @@ struct TorrentResultsView: View {
                     }
                 }
             }
+            if model.currentTorrentSearch!.groups.count == 0 {
+                Text("No Results")
+            }
         }
     }
 }

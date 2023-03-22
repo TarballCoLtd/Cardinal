@@ -23,11 +23,12 @@ struct PersonalProfileView: View {
                             .bold()
                             .foregroundColor(.red)
                         if model.personalProfile!.donor {
-                            Image(systemName: "heart.fill")
+                            Image(systemName: "heart")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 20)
                                 .foregroundColor(.red)
+                                .font(.title.weight(.semibold))
                         }
                         if model.personalProfile!.warned {
                             Image(systemName: "exclamationmark.triangle")
@@ -35,6 +36,7 @@ struct PersonalProfileView: View {
                                 .scaledToFit()
                                 .frame(maxWidth: 20)
                                 .foregroundColor(.red)
+                                .font(.title.weight(.semibold))
                         }
                         Spacer()
                     }

@@ -31,11 +31,12 @@ struct UserProfileView: View {
                         .bold()
                         .foregroundColor(.red)
                     if profile.donor {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "heart")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 20)
                             .foregroundColor(.red)
+                            .font(.title.weight(.semibold))
                     }
                     if profile.warned {
                         Image(systemName: "exclamationmark.triangle")
