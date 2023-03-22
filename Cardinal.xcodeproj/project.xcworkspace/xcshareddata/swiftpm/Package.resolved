@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "floatingtabbar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alyxferrari/FloatingTabBar",
+      "state" : {
+        "branch" : "master",
+        "revision" : "0611101b731e76062198ce238a020cceacc8f82e"
+      }
+    },
+    {
+      "identity" : "gazellekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tarballcoltd/gazellekit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c4c1f9db00e88c135841955e5d298bf951c5f79a"
+      }
+    },
+    {
+      "identity" : "whatsnewkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SvenTiigi/WhatsNewKit",
+      "state" : {
+        "revision" : "238dadc14dd58885f51037e63d08baf4275c480e",
+        "version" : "2.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}
