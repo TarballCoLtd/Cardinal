@@ -36,6 +36,6 @@ class CardinalModel: ObservableObject {
     }
     
     func setAPIKey(_ apiKey: String) {
-        api = GazelleAPI(apiKey)
+        api = GazelleAPI(apiKey, tracker: .redacted)
     }
 }
