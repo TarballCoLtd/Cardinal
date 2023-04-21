@@ -12,6 +12,7 @@ import GazelleKit
 
 class CardinalModel: ObservableObject {
     @AppStorage("apiKey") var apiKey: String = ""
+    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @Published var api: GazelleAPI?
     @Published var personalProfile: UserProfile?
     @Published var announcements: Announcements?
@@ -36,6 +37,6 @@ class CardinalModel: ObservableObject {
     }
     
     func setAPIKey(_ apiKey: String) {
-        api = GazelleAPI(apiKey, tracker: .redacted)
+        api = GazelleAPI(apiKey, tracker: tracker)
     }
 }
