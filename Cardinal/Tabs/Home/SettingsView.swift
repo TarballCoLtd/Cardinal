@@ -6,13 +6,10 @@
 //
 
 import SwiftUI
-import GazelleKit
 
 struct SettingsView: View {
     @EnvironmentObject var model: CardinalModel
-    @AppStorage("apiKey") var redApiKey: String = ""
-    @AppStorage("opsApiKey") var opsApiKey: String = ""
-    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
+    @AppStorage("apiKey") var apiKey: String = ""
     let version: String?
     let build: String?
     init() {
@@ -22,14 +19,8 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section("Authentication") {
-                SecureField("RED API Key", text: $redApiKey)
+                SecureField("API Key", text: $apiKey)
                 Text("An API key can be created in your RED profile settings under Access Settings. Be sure to only select permissions you're comfortable with this app having. Do not share your API key with anyone under any circumstances.")
-                    .foregroundColor(.gray)
-                    .font(.caption)
-            }
-            Section {
-                SecureField("OPS API Key", text: $opsApiKey)
-                Text("An API key can be created in your OPS profile settings under Access Settings. Do not share your API key with anyone under any circumstances.")
                     .foregroundColor(.gray)
                     .font(.caption)
             }
@@ -37,20 +28,14 @@ struct SettingsView: View {
                 HStack {
                     Text("App Version:")
                     Spacer()
-                    Text("\(version ?? "Error") (\(build ?? "-1"))")
+                    Text("\(version ?? "Error") (\(build ?? "0"))")
                 }
             }
         }
         .navigationTitle("Settings")
-        .onChange(of: redApiKey) { apiKey in
-            if tracker == .redacted {
-                model.setAPIKey(apiKey)
-            }
-        }
-        .onChange(of: opsApiKey) { apiKey in
-            if tracker == .orpheus {
-                model.setAPIKey(apiKey)
-            }
+        .onChange(of: apiKey) { apiKey in
+            print("PEEPEE FART")
+            model.setAPIKey(apiKey)
         }
     }
 }
