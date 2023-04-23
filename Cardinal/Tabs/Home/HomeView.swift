@@ -116,9 +116,9 @@ struct HomeView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu(tracker.rawValue) {
-                        Button("RED", action: selectRedacted)
-                        Button("OPS", action: selectOrpheus)
+                    Menu(HomeView.getTrackerName(tracker)) {
+                        Button("Redacted (RED)", action: selectRedacted)
+                        Button("Orpheus (OPS)", action: selectOrpheus)
                     }
                 }
             }
@@ -128,6 +128,15 @@ struct HomeView: View {
                 print("DEBUG: api key is \(model.getAPIKey())")
             }
             #endif
+        }
+    }
+    
+    static func getTrackerName(_ tracker: GazelleTracker) -> String {
+        switch(tracker) {
+        case .redacted:
+            return "RED"
+        case .orpheus:
+            return "OPS"
         }
     }
     
