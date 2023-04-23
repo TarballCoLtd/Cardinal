@@ -9,7 +9,6 @@ import SwiftUI
 
 struct InboxView: View {
     @EnvironmentObject var model: CardinalModel
-    @AppStorage("apiKey") var apiKey: String = ""
     @State var fetchingPage: Bool = false
     @State var erroredOut: Bool = false
     var body: some View {
@@ -100,7 +99,7 @@ struct InboxView: View {
                     model.unreadConversations = conversation.unread
                 }
             }
-        } else if apiKey != "" {
+        } else if model.getAPIKey() != "" {
             VStack {
                 Spacer()
                 HStack {

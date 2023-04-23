@@ -11,7 +11,8 @@ import FloatingTabBar
 import GazelleKit
 
 class CardinalModel: ObservableObject {
-    @AppStorage("apiKey") var apiKey: String = ""
+    @AppStorage("apiKey") var redApiKey: String = ""
+    @AppStorage("opsApiKey") var opsApiKey: String = ""
     @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @Published var api: GazelleAPI?
     @Published var personalProfile: UserProfile?
@@ -31,12 +32,18 @@ class CardinalModel: ObservableObject {
     @Published var selectionString: String = "Torrents"
     
     init() {
-        if apiKey != "" {
-            setAPIKey(apiKey)
+        if tracker == .redacted && redApiKey != "" {
+            setAPIKey(redApiKey)
+        } else if tracker == .orpheus && opsApiKey != "" {
+            setAPIKey(opsApiKey)
         }
     }
     
     func setAPIKey(_ apiKey: String) {
         api = GazelleAPI(apiKey, tracker: tracker)
+    }
+    
+    func getAPIKey() -> String {
+        api?.apiKey ?? ""
     }
 }

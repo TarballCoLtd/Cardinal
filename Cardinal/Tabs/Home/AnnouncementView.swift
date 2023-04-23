@@ -16,7 +16,7 @@ struct AnnouncementView: View {
     }
     var body: some View {
         List {
-            Section(announcement.title) {
+            Section(announcement.title ?? "") {
                 if let time = announcement.time {
                     SectionTitle("Posted") {
                         HStack {
@@ -25,7 +25,7 @@ struct AnnouncementView: View {
                         }
                     }
                 }
-                if let parsed = model.parsedAnnouncements[announcement.announcementId] {
+                if let parsed = model.parsedAnnouncements[announcement.announcementId ?? 0] {
                     Text(parsed)
                 } else {
                     HStack {
@@ -36,7 +36,7 @@ struct AnnouncementView: View {
                     }
                     .onAppear {
                         Task {
-                            model.parsedAnnouncements[announcement.announcementId] = announcement.body.htmlToString()
+                            model.parsedAnnouncements[announcement.announcementId ?? 0] = (announcement.body ?? "").htmlToString()
                         }
                     }
                 }

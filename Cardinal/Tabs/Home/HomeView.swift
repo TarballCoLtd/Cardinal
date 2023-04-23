@@ -7,10 +7,13 @@
 
 import SwiftUI
 import WhatsNewKit
+import GazelleKit
 
 struct HomeView: View {
     @EnvironmentObject var model: CardinalModel
-    @AppStorage("apiKey") var apiKey: String = ""
+    @AppStorage("apiKey") var redApiKey: String = ""
+    @AppStorage("opsApiKey") var opsApiKey: String = ""
+    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @AppStorage("atsDisabledWarningShown") var atsDisabledWarningShown: Bool = false
     @State var atsDisabledWarningSheetPresented: Bool = false
     @State var erroredOut: Bool = false
@@ -24,7 +27,7 @@ struct HomeView: View {
                                 NavigationLink {
                                     AnnouncementView(announcement)
                                 } label: {
-                                    Text(announcement.title)
+                                    Text(announcement.title ?? "")
                                         .font(.caption)
                                         //.foregroundColor(.gray)
                                         .bold()
@@ -68,7 +71,7 @@ struct HomeView: View {
                             erroredOut = true
                         }
                     }
-                } else if apiKey != "" {
+                } else if model.getAPIKey() != "" {
                     VStack {
                         Spacer()
                         HStack {
@@ -86,6 +89,9 @@ struct HomeView: View {
                                 model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
                                 model.announcements!.announcements.reverse()
                             } catch {
+                                #if DEBUG
+                                print(error)
+                                #endif
                                 erroredOut = true
                             }
                         }
@@ -109,7 +115,29 @@ struct HomeView: View {
                             .scaledToFit()
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu(tracker.rawValue) {
+                        Button("RED", action: selectRedacted)
+                        Button("OPS", action: selectOrpheus)
+                    }
+                }
             }
+            #if DEBUG
+            .onAppear {
+                print("DEBUG: current tracker is \(tracker.rawValue)")
+                print("DEBUG: api key is \(model.getAPIKey())")
+            }
+            #endif
         }
+    }
+    
+    func selectRedacted() {
+        tracker = .redacted
+        model.setAPIKey(redApiKey)
+    }
+    
+    func selectOrpheus() {
+        tracker = .orpheus
+        model.setAPIKey(opsApiKey)
     }
 }
