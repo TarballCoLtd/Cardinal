@@ -21,13 +21,13 @@ struct SettingsView: View {
     }
     var body: some View {
         List {
-            Section("Authentication") {
+            Section("Redacted Key") {
                 SecureField("RED API Key", text: $redApiKey)
                 Text("An API key can be created in your RED profile settings under Access Settings. Be sure to only select permissions you're comfortable with this app having. Do not share your API key with anyone under any circumstances.")
                     .foregroundColor(.gray)
                     .font(.caption)
             }
-            Section {
+            Section("Orpheus Key") {
                 SecureField("OPS API Key", text: $opsApiKey)
                 Text("An API key can be created in your OPS profile settings under Access Settings. Do not share your API key with anyone under any circumstances.")
                     .foregroundColor(.gray)
