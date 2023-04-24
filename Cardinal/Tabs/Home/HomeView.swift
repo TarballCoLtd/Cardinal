@@ -154,24 +154,6 @@ struct HomeView: View {
         }
     }
     
-    static func getShortenedTrackerName(_ tracker: GazelleTracker) -> String {
-        switch(tracker) {
-        case .redacted:
-            return "RED"
-        case .orpheus:
-            return "OPS"
-        }
-    }
-    
-    static func getTrackerName(_ tracker: GazelleTracker) -> String {
-        switch(tracker) {
-        case .redacted:
-            return "Redacted"
-        case .orpheus:
-            return "Orpheus"
-        }
-    }
-    
     @Sendable
     func refresh() async {
         do {
