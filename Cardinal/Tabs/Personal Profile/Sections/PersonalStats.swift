@@ -19,6 +19,11 @@ struct PersonalStats: View {
         RectangleOverlay {
             VStack {
                 HStack {
+                    Text("Tracker:")
+                    Spacer()
+                    Text(GazelleAPI.getTrackerName(tracker))
+                }
+                HStack {
                     Text("Joined:")
                     Spacer()
                     Text(formatter.string(from: model.personalProfile!.joinedDate))
