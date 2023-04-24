@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct InboxView: View {
     @EnvironmentObject var model: CardinalModel
     @State var fetchingPage: Bool = false
     @State var erroredOut: Bool = false
+    @State var refreshing: Bool = false
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -25,6 +27,7 @@ struct InboxView: View {
                 }
                 .navigationTitle("Inbox")
                 .refreshable {
+                    refreshing = true
                     do {
                         let currentPage = model.inbox!.currentPage
                         model.inbox = nil
@@ -33,8 +36,11 @@ struct InboxView: View {
                         #if DEBUG
                         print(error)
                         #endif
-                        erroredOut = true
+                        if error is GazelleAPIError {
+                            erroredOut = true
+                        }
                     }
+                    refreshing = false
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -53,7 +59,9 @@ struct InboxView: View {
                                                 #if DEBUG
                                                 print(error)
                                                 #endif
-                                                erroredOut = true
+                                                if error is GazelleAPIError {
+                                                    erroredOut = true
+                                                }
                                             }
                                         }
                                     } label: {
@@ -82,7 +90,9 @@ struct InboxView: View {
                                                 #if DEBUG
                                                 print(error)
                                                 #endif
-                                                erroredOut = true
+                                                if error is GazelleAPIError {
+                                                    erroredOut = true
+                                                }
                                             }
                                         }
                                     } label: {
@@ -108,7 +118,20 @@ struct InboxView: View {
                     model.unreadConversations = conversation.unread
                 }
             }
-        } else if model.getAPIKey() != "" {
+        } else if erroredOut {
+            RequestError {
+                do {
+                    model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
+                } catch {
+                    #if DEBUG
+                    print(error)
+                    #endif
+                    if error is GazelleAPIError {
+                        erroredOut = true
+                    }
+                }
+            }
+        } else if model.getAPIKey() != "" && !refreshing {
             VStack {
                 Spacer()
                 HStack {
@@ -128,20 +151,11 @@ struct InboxView: View {
                             #if DEBUG
                             print(error)
                             #endif
-                            erroredOut = true
+                            if error is GazelleAPIError {
+                                erroredOut = true
+                            }
                         }
                     }
-                }
-            }
-        } else if erroredOut {
-            RequestError {
-                do {
-                    model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
-                } catch {
-                    #if DEBUG
-                    print(error)
-                    #endif
-                    erroredOut = true
                 }
             }
         } else {
