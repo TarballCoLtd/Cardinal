@@ -9,6 +9,7 @@ import SwiftUI
 import GazelleKit
 
 struct PersonalStats: View {
+    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @EnvironmentObject var model: CardinalModel
     let formatter = DateFormatter()
     init() {
@@ -40,18 +41,22 @@ struct PersonalStats: View {
                 HStack {
                     Text("Ratio:")
                     Spacer()
-                    if model.personalProfile!.calcRatio < model.personalProfile!.requiredRatio! {
-                        Text(String(format: "%.2f", model.personalProfile!.calcRatio))
-                            .foregroundColor(.red)
-                            .bold()
-                    } else {
-                        Text(String(format: "%.2f", model.personalProfile!.calcRatio))
+                    if let ratio = model.personalProfile?.calcRatio {
+                        if ratio < model.personalProfile!.requiredRatio! {
+                            Text(String(format: "%.2f", ratio))
+                                .foregroundColor(.red)
+                                .bold()
+                        } else {
+                            Text(String(format: "%.2f", ratio))
+                        }
                     }
                 }
-                HStack {
-                    Text("Required Ratio:")
-                    Spacer()
-                    Text(String(format: "%.2f", model.personalProfile!.requiredRatio!))
+                if let requiredRatio = model.personalProfile!.requiredRatio, tracker != .orpheus {
+                    HStack {
+                        Text("Required Ratio:")
+                        Spacer()
+                        Text(String(format: "%.2f", requiredRatio))
+                    }
                 }
             }
         }
@@ -81,8 +86,10 @@ func pow(_ x: Int, _ y: Int) -> Int {
 }
 
 extension UserProfile {
-    public var calcRatio: Float {
-        let ret = Float(uploaded ?? 0) / Float(downloaded ?? 0)
+    public var calcRatio: Float? {
+        guard let uploaded = uploaded else { return nil }
+        guard let downloaded = downloaded else { return nil }
+        let ret = Float(uploaded) / Float(downloaded)
         return floorf(ret * 100.0) / 100.0
     }
 }

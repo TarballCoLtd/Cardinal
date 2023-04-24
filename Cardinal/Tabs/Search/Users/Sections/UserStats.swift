@@ -49,8 +49,8 @@ struct UserStats: View {
                         HStack {
                             Text("Ratio:")
                             Spacer()
-                            if let required = profile.requiredRatio {
-                                if profile.calcRatio < required {
+                            if let required = profile.requiredRatio, let ratio = profile.calcRatio {
+                                if ratio < required {
                                     Text(String(format: "%.2f", ratio))
                                         .foregroundColor(.red)
                                         .bold()

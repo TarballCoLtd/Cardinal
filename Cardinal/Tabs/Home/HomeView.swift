@@ -15,33 +15,44 @@ struct HomeView: View {
     @AppStorage("opsApiKey") var opsApiKey: String = ""
     @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @AppStorage("atsDisabledWarningShown") var atsDisabledWarningShown: Bool = false
+    @State var refreshing: Bool = false
     @State var atsDisabledWarningSheetPresented: Bool = false
     @State var erroredOut: Bool = false
     var body: some View {
         NavigationView {
             Group {
-                if model.announcements != nil {
+                if let announcements = model.announcements {
                     VStack { // this VStack has no purpose other than to trigger a SwiftUI bug that makes the List collapsible only if its embedded in a VStack
                         List {
-                            ForEach(model.announcements!.announcements) { announcement in
-                                NavigationLink {
-                                    AnnouncementView(announcement)
-                                } label: {
-                                    Text(announcement.title ?? "")
-                                        .font(.caption)
-                                        //.foregroundColor(.gray)
-                                        .bold()
+                            if !announcements.containsNullAnnouncements() && announcements.announcements.count > 0 {
+                                Section("Announcements") {
+                                    ForEach(announcements.announcements) { announcement in
+                                        NavigationLink {
+                                            AnnouncementView(announcement)
+                                        } label: {
+                                            Text(announcement.title ?? "")
+                                                .font(.caption)
+                                                //.foregroundColor(.gray)
+                                                .bold()
+                                        }
+                                    }
+                                }
+                            }
+                            if announcements.blogPosts.count > 0 {
+                                Section("Blog Posts") {
+                                    ForEach (announcements.blogPosts) { post in
+                                        NavigationLink {
+                                            BlogPostView(post)
+                                        } label: {
+                                            Text(post.title)
+                                                .font(.caption)
+                                                .bold()
+                                        }
+                                    }
                                 }
                             }
                         }
-                        .refreshable {
-                            do {
-                                model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
-                                model.announcements!.announcements.reverse()
-                            } catch {
-                                erroredOut = true
-                            }
-                        }
+                        .refreshable(action: refresh)
                     }
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -66,7 +77,6 @@ struct HomeView: View {
                         do {
                             model.announcements = nil
                             model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
-                            model.announcements!.announcements.reverse()
                         } catch {
                             erroredOut = true
                         }
@@ -87,7 +97,6 @@ struct HomeView: View {
                             do {
                                 model.announcements = nil
                                 model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
-                                model.announcements!.announcements.reverse()
                             } catch {
                                 #if DEBUG
                                 print(error)
@@ -116,9 +125,23 @@ struct HomeView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu(HomeView.getTrackerName(tracker)) {
-                        Button("Redacted (RED)", action: selectRedacted)
-                        Button("Orpheus (OPS)", action: selectOrpheus)
+                    Group {
+                        if refreshing {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                        } else {
+                            Menu(HomeView.getTrackerName(tracker)) {
+                                Button("Redacted (RED)", action: selectRedacted)
+                                Button("Orpheus (OPS)", action: selectOrpheus)
+                            }
+                        }
+                    }
+                    .onChange(of: tracker) { _ in
+                        Task {
+                            refreshing = true
+                            await refresh()
+                            refreshing = false
+                        }
                     }
                 }
             }
@@ -137,6 +160,15 @@ struct HomeView: View {
             return "RED"
         case .orpheus:
             return "OPS"
+        }
+    }
+    
+    @Sendable
+    func refresh() async {
+        do {
+            model.announcements = try await model.api!.requestAnnouncements(perPage: 100)
+        } catch {
+            erroredOut = true
         }
     }
     

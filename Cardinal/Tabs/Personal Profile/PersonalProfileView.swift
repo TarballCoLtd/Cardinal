@@ -112,6 +112,9 @@ struct PersonalProfileView: View {
                         model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
                         model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
                     } catch {
+                        #if DEBUG
+                        print(error)
+                        #endif
                         erroredOut = true
                     }
                 }
