@@ -11,8 +11,8 @@ import GazelleKit
 struct InboxView: View {
     @EnvironmentObject var model: CardinalModel
     @State var fetchingPage: Bool = false
+    @State var fetchingPageOnAppear: Bool = true
     @State var erroredOut: Bool = false
-    @State var refreshing: Bool = false
     var body: some View {
         if model.inbox != nil {
             NavigationView {
@@ -27,10 +27,8 @@ struct InboxView: View {
                 }
                 .navigationTitle("Inbox")
                 .refreshable {
-                    refreshing = true
                     do {
                         let currentPage = model.inbox!.currentPage
-                        model.inbox = nil
                         model.inbox = try await model.api!.requestInbox(page: currentPage, type: .inbox)
                     } catch {
                         #if DEBUG
@@ -40,19 +38,20 @@ struct InboxView: View {
                             erroredOut = true
                         }
                     }
-                    refreshing = false
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
-                            if let inbox = model.inbox {
+                            if fetchingPage {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                            } else if let inbox = model.inbox {
                                 if inbox.currentPage > 1 {
                                     Button {
                                         Task {
                                             do {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
-                                                model.inbox = nil
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage - 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
@@ -83,7 +82,6 @@ struct InboxView: View {
                                             do {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
-                                                model.inbox = nil
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage + 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
@@ -131,7 +129,7 @@ struct InboxView: View {
                     }
                 }
             }
-        } else if model.getAPIKey() != "" && !refreshing {
+        } else if model.getAPIKey() != "" && fetchingPageOnAppear {
             VStack {
                 Spacer()
                 HStack {
@@ -143,7 +141,8 @@ struct InboxView: View {
                 Spacer()
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
-                if !fetchingPage {
+                if model.inbox == nil {
+                    fetchingPageOnAppear = true
                     Task {
                         do {
                             model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
@@ -155,6 +154,7 @@ struct InboxView: View {
                                 erroredOut = true
                             }
                         }
+                        fetchingPageOnAppear = false
                     }
                 }
             }
