@@ -130,7 +130,7 @@ struct HomeView: View {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle())
                         } else {
-                            Menu(HomeView.getShortenedTrackerName(tracker)) {
+                            Menu(GazelleAPI.getShortenedTrackerName(tracker)) {
                                 Button("Redacted (RED)", action: selectRedacted)
                                 Button("Orpheus (OPS)", action: selectOrpheus)
                             }
