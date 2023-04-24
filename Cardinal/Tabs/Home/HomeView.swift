@@ -130,7 +130,7 @@ struct HomeView: View {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle())
                         } else {
-                            Menu(HomeView.getTrackerName(tracker)) {
+                            Menu(HomeView.getShortenedTrackerName(tracker)) {
                                 Button("Redacted (RED)", action: selectRedacted)
                                 Button("Orpheus (OPS)", action: selectOrpheus)
                             }
@@ -154,12 +154,21 @@ struct HomeView: View {
         }
     }
     
-    static func getTrackerName(_ tracker: GazelleTracker) -> String {
+    static func getShortenedTrackerName(_ tracker: GazelleTracker) -> String {
         switch(tracker) {
         case .redacted:
             return "RED"
         case .orpheus:
             return "OPS"
+        }
+    }
+    
+    static func getTrackerName(_ tracker: GazelleTracker) -> String {
+        switch(tracker) {
+        case .redacted:
+            return "Redacted"
+        case .orpheus:
+            return "Orpheus"
         }
     }
     
