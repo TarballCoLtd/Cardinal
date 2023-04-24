@@ -124,6 +124,9 @@ struct SearchView: View {
                     }
                 }
             } catch {
+                #if DEBUG
+                print(error)
+                #endif
                 erroredOut = true
                 searching = false
             }
