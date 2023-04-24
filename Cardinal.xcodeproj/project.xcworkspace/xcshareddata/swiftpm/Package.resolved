@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tarballcoltd/gazellekit",
       "state" : {
-        "branch" : "orpheus-support",
-        "revision" : "0314f36d805edc52b6e74b750913e7b4b011ca56"
+        "branch" : "main",
+        "revision" : "c4c1f9db00e88c135841955e5d298bf951c5f79a"
       }
     },
     {
