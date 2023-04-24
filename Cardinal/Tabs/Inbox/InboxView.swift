@@ -30,6 +30,9 @@ struct InboxView: View {
                         model.inbox = nil
                         model.inbox = try await model.api!.requestInbox(page: currentPage, type: .inbox)
                     } catch {
+                        #if DEBUG
+                        print(error)
+                        #endif
                         erroredOut = true
                     }
                 }
@@ -47,6 +50,9 @@ struct InboxView: View {
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage - 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
+                                                #if DEBUG
+                                                print(error)
+                                                #endif
                                                 erroredOut = true
                                             }
                                         }
@@ -73,6 +79,9 @@ struct InboxView: View {
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage + 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
+                                                #if DEBUG
+                                                print(error)
+                                                #endif
                                                 erroredOut = true
                                             }
                                         }
@@ -116,6 +125,9 @@ struct InboxView: View {
                         do {
                             model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
                         } catch {
+                            #if DEBUG
+                            print(error)
+                            #endif
                             erroredOut = true
                         }
                     }
@@ -126,6 +138,9 @@ struct InboxView: View {
                 do {
                     model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
                 } catch {
+                    #if DEBUG
+                    print(error)
+                    #endif
                     erroredOut = true
                 }
             }
