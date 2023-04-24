@@ -9,8 +9,9 @@ import SwiftUI
 import GazelleKit
 
 struct UserStats: View {
-    let formatter = DateFormatter()
+    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @State var profile: UserProfile
+    let formatter = DateFormatter()
     init(_ profile: UserProfile) {
         self._profile = State(initialValue: profile)
         formatter.dateStyle = .short
