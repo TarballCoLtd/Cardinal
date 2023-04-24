@@ -85,12 +85,14 @@ struct RequestView: View {
                 }
             }
             Group {
-                SectionTitle("Allowed Bit Depths/Bitrates") {
-                    VStack {
-                        ForEach(request.bitrateList, id: \.self) { bitrate in
-                            HStack {
-                                Text(bitrate)
-                                Spacer()
+                if request.bitrateList.count > 0 {
+                    SectionTitle("Allowed Bit Depths/Bitrates") {
+                        VStack {
+                            ForEach(request.bitrateList, id: \.self) { bitrate in
+                                HStack {
+                                    Text(bitrate)
+                                    Spacer()
+                                }
                             }
                         }
                     }
@@ -105,12 +107,14 @@ struct RequestView: View {
                         }
                     }
                 }
-                SectionTitle("Allowed Media") {
-                    VStack {
-                        ForEach(request.mediaList, id: \.self) { media in
-                            HStack {
-                                Text(media)
-                                Spacer()
+                if request.mediaList.count > 0 {
+                    SectionTitle("Allowed Media") {
+                        VStack {
+                            ForEach(request.mediaList, id: \.self) { media in
+                                HStack {
+                                    Text(media)
+                                    Spacer()
+                                }
                             }
                         }
                     }

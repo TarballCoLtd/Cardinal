@@ -1,23 +1,23 @@
 //
-//  AnnouncementView.swift
+//  BlogPostView.swift
 //  Cardinal
 //
-//  Created by Tarball on 3/21/23.
+//  Created by Tarball on 4/23/23.
 //
 
 import SwiftUI
 import GazelleKit
 
-struct AnnouncementView: View {
+struct BlogPostView: View {
     @EnvironmentObject var model: CardinalModel
-    @State var announcement: Announcement
-    init(_ announcement: Announcement) {
-        self._announcement = State(initialValue: announcement)
+    @State var post: BlogPost
+    init(_ post: BlogPost) {
+        self._post = State(initialValue: post)
     }
     var body: some View {
         List {
-            Section(announcement.title ?? "") {
-                if let time = announcement.time {
+            Section(post.title) {
+                if let time = post.time {
                     SectionTitle("Posted") {
                         HStack {
                             Text(time.timeAgo)
@@ -25,7 +25,7 @@ struct AnnouncementView: View {
                         }
                     }
                 }
-                if let parsed = model.parsedAnnouncements[announcement.announcementId ?? 0] {
+                if let parsed = model.parsedAnnouncements[post.blogId] {
                     Text(parsed)
                 } else {
                     HStack {
@@ -36,7 +36,7 @@ struct AnnouncementView: View {
                     }
                     .onAppear {
                         Task {
-                            model.parsedAnnouncements[announcement.announcementId ?? 0] = (announcement.body ?? "").htmlToString()
+                            model.parsedAnnouncements[post.blogId] = post.body.htmlToString()
                         }
                     }
                 }

@@ -72,10 +72,10 @@ struct ArtistTorrentView: View {
                         Spacer()
                     }
                 }
-                if torrent.remastered && torrent.remasterTitle != "" {
+                if let remasteredYear = torrent.remasteredYear, torrent.remastered && torrent.remasterTitle != "" {
                     SectionTitle("Remaster") {
                         HStack {
-                            Text("\(torrent.remasterTitle)\nRemastered \(String(torrent.remasteredYear))")
+                            Text("\(torrent.remasterTitle)\nRemastered \(String(remasteredYear))")
                             Spacer()
                         }
                     }

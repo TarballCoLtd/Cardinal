@@ -18,10 +18,12 @@ struct PersonalCommunity: View {
                         Spacer()
                         Text(String(model.personalProfile!.posts!))
                     }
-                    HStack {
-                        Text("Group votes:")
-                        Spacer()
-                        Text(String(model.personalProfile!.groupVotes!))
+                    if let groupVotes = model.personalProfile!.groupVotes {
+                        HStack {
+                            Text("Group votes:")
+                            Spacer()
+                            Text(String(groupVotes))
+                        }
                     }
                     HStack {
                         Text("Torrent comments:")

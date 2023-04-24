@@ -11,7 +11,6 @@ import GazelleKit
 struct UserProfileView: View {
     @EnvironmentObject var model: CardinalModel
     @Environment(\.colorScheme) var colorScheme
-    @AppStorage("apiKey") var apiKey: String = ""
     @State var result: UserSearchResult
     @State var profile: UserProfile?
     @State var avatarExists: Bool = true
@@ -158,7 +157,7 @@ struct UserProfileView: View {
                         .font(.headline)
                 }
             }
-        } else if apiKey != "" {
+        } else if model.getAPIKey() != "" {
             loading
         } else if erroredOut {
             RequestError {

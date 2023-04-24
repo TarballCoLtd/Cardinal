@@ -77,6 +77,8 @@
 		0387CA11293C864500864B63 /* RectangleOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0387CA10293C864500864B63 /* RectangleOverlay.swift */; };
 		03B86E0E293EF63C00173971 /* TorrentResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B86E0D293EF63C00173971 /* TorrentResultsView.swift */; };
 		03CB76252946FC6B00B46631 /* ATSDisabledSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB76232946FB2900B46631 /* ATSDisabledSheet.swift */; };
+		03CBFFAB29F6079B006E4C6B /* BlogPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CBFFAA29F6079B006E4C6B /* BlogPostView.swift */; };
+		03CBFFAC29F6079B006E4C6B /* BlogPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CBFFAA29F6079B006E4C6B /* BlogPostView.swift */; };
 		03D50BC829CA5124004A279D /* AnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D50BC729CA5124004A279D /* AnnouncementView.swift */; };
 		03D50BC929CA5124004A279D /* AnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D50BC729CA5124004A279D /* AnnouncementView.swift */; };
 		03E4FCAA293D85E300C7A6B0 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E4FCA9293D85E300C7A6B0 /* InboxView.swift */; };
@@ -124,6 +126,7 @@
 		0387CA10293C864500864B63 /* RectangleOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleOverlay.swift; sourceTree = "<group>"; };
 		03B86E0D293EF63C00173971 /* TorrentResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentResultsView.swift; sourceTree = "<group>"; };
 		03CB76232946FB2900B46631 /* ATSDisabledSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATSDisabledSheet.swift; sourceTree = "<group>"; };
+		03CBFFAA29F6079B006E4C6B /* BlogPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogPostView.swift; sourceTree = "<group>"; };
 		03D50BC729CA5124004A279D /* AnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementView.swift; sourceTree = "<group>"; };
 		03E4FCA9293D85E300C7A6B0 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		03E4FCAB293D878A00C7A6B0 /* ConversationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationPreview.swift; sourceTree = "<group>"; };
@@ -212,6 +215,7 @@
 				03D50BC729CA5124004A279D /* AnnouncementView.swift */,
 				03314C4629418C5600916A4B /* SettingsView.swift */,
 				03CB76232946FB2900B46631 /* ATSDisabledSheet.swift */,
+				03CBFFAA29F6079B006E4C6B /* BlogPostView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -457,6 +461,7 @@
 				03399C7A293D1EEB008DB706 /* PersonalInfo.swift in Sources */,
 				0387C9ED293C4C3300864B63 /* PersonalProfileView.swift in Sources */,
 				03314C4729418C5600916A4B /* SettingsView.swift in Sources */,
+				03CBFFAB29F6079B006E4C6B /* BlogPostView.swift in Sources */,
 				03256149293E7FD1000D5636 /* SearchView.swift in Sources */,
 				030B852C293A8B6B00661674 /* ContentView.swift in Sources */,
 				030F1C9B293F9011009894F9 /* TorrentGroupView.swift in Sources */,
@@ -503,6 +508,7 @@
 				032C29B12946E8C600E2DBD6 /* TorrentGroupView.swift in Sources */,
 				032C29B32946E8C600E2DBD6 /* RectangleOverlay.swift in Sources */,
 				032C29B42946E8C600E2DBD6 /* TorrentView.swift in Sources */,
+				03CBFFAC29F6079B006E4C6B /* BlogPostView.swift in Sources */,
 				032C29B52946E8C600E2DBD6 /* AccentCapsule.swift in Sources */,
 				032C29B62946E8C600E2DBD6 /* CardinalModel.swift in Sources */,
 				032C29B72946E8C600E2DBD6 /* RequestView.swift in Sources */,
@@ -660,7 +666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarball.REDSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -696,7 +702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarball.REDSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -733,7 +739,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarball.REDSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -771,7 +777,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarball.REDSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

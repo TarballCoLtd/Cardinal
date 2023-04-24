@@ -10,7 +10,6 @@ import SwiftUI
 struct PersonalProfileView: View {
     @EnvironmentObject var model: CardinalModel
     @Environment(\.colorScheme) var colorScheme
-    @AppStorage("apiKey") var apiKey: String = ""
     @State var erroredOut: Bool = false
     var body: some View { // the padding in this whole thing makes me :cringeharold:
         if model.personalProfile != nil {
@@ -95,7 +94,7 @@ struct PersonalProfileView: View {
                 }
                 model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
             }
-        } else if apiKey != "" {
+        } else if model.getAPIKey() != "" {
             VStack {
                 Spacer()
                 HStack {
@@ -111,10 +110,13 @@ struct PersonalProfileView: View {
                     do {
                         let profile = try await model.api!.requestPersonalProfile()
                         model.personalProfile = try await model.api!.requestUserProfile(user: profile.id)
+                        model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
                     } catch {
+                        #if DEBUG
+                        print(error)
+                        #endif
                         erroredOut = true
                     }
-                    model.pfp = try? await model.api!.requestProfilePicture(model.personalProfile!.avatar)
                 }
             }
         } else if erroredOut {

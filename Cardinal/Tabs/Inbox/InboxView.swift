@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import GazelleKit
 
 struct InboxView: View {
     @EnvironmentObject var model: CardinalModel
-    @AppStorage("apiKey") var apiKey: String = ""
     @State var fetchingPage: Bool = false
+    @State var fetchingPageOnAppear: Bool = true
     @State var erroredOut: Bool = false
     var body: some View {
         if model.inbox != nil {
@@ -28,27 +29,38 @@ struct InboxView: View {
                 .refreshable {
                     do {
                         let currentPage = model.inbox!.currentPage
-                        model.inbox = nil
                         model.inbox = try await model.api!.requestInbox(page: currentPage, type: .inbox)
                     } catch {
-                        erroredOut = true
+                        #if DEBUG
+                        print(error)
+                        #endif
+                        if error is GazelleAPIError {
+                            erroredOut = true
+                        }
                     }
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         HStack {
-                            if let inbox = model.inbox {
+                            if fetchingPage {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                            } else if let inbox = model.inbox {
                                 if inbox.currentPage > 1 {
                                     Button {
                                         Task {
                                             do {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
-                                                model.inbox = nil
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage - 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
-                                                erroredOut = true
+                                                #if DEBUG
+                                                print(error)
+                                                #endif
+                                                if error is GazelleAPIError {
+                                                    erroredOut = true
+                                                }
                                             }
                                         }
                                     } label: {
@@ -70,11 +82,15 @@ struct InboxView: View {
                                             do {
                                                 fetchingPage = true
                                                 let currentPage = inbox.currentPage
-                                                model.inbox = nil
                                                 model.inbox = try await model.api!.requestInbox(page: currentPage + 1, type: .inbox)
                                                 fetchingPage = false
                                             } catch {
-                                                erroredOut = true
+                                                #if DEBUG
+                                                print(error)
+                                                #endif
+                                                if error is GazelleAPIError {
+                                                    erroredOut = true
+                                                }
                                             }
                                         }
                                     } label: {
@@ -100,7 +116,20 @@ struct InboxView: View {
                     model.unreadConversations = conversation.unread
                 }
             }
-        } else if apiKey != "" {
+        } else if erroredOut {
+            RequestError {
+                do {
+                    model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
+                } catch {
+                    #if DEBUG
+                    print(error)
+                    #endif
+                    if error is GazelleAPIError {
+                        erroredOut = true
+                    }
+                }
+            }
+        } else if model.getAPIKey() != "" && fetchingPageOnAppear {
             VStack {
                 Spacer()
                 HStack {
@@ -112,22 +141,21 @@ struct InboxView: View {
                 Spacer()
             }
             .onAppear { // this is dumb but for some reason when i use `.task(_:)`, it shits itself
-                if !fetchingPage {
+                if model.inbox == nil {
+                    fetchingPageOnAppear = true
                     Task {
                         do {
                             model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
                         } catch {
-                            erroredOut = true
+                            #if DEBUG
+                            print(error)
+                            #endif
+                            if error is GazelleAPIError {
+                                erroredOut = true
+                            }
                         }
+                        fetchingPageOnAppear = false
                     }
-                }
-            }
-        } else if erroredOut {
-            RequestError {
-                do {
-                    model.inbox = try await model.api!.requestInbox(page: 1, type: .inbox)
-                } catch {
-                    erroredOut = true
                 }
             }
         } else {

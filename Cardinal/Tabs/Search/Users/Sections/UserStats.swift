@@ -9,8 +9,9 @@ import SwiftUI
 import GazelleKit
 
 struct UserStats: View {
-    let formatter = DateFormatter()
+    @AppStorage("tracker") var tracker: GazelleTracker = .redacted
     @State var profile: UserProfile
+    let formatter = DateFormatter()
     init(_ profile: UserProfile) {
         self._profile = State(initialValue: profile)
         formatter.dateStyle = .short
@@ -18,6 +19,11 @@ struct UserStats: View {
     var body: some View {
         RectangleOverlay {
             VStack {
+                HStack {
+                    Text("Tracker:")
+                    Spacer()
+                    Text(GazelleAPI.getTrackerName(tracker))
+                }
                 HStack {
                     Text("Joined:")
                     Spacer()
@@ -49,8 +55,8 @@ struct UserStats: View {
                         HStack {
                             Text("Ratio:")
                             Spacer()
-                            if let required = profile.requiredRatio {
-                                if profile.calcRatio < required {
+                            if let required = profile.requiredRatio, let ratio = profile.calcRatio {
+                                if ratio < required {
                                     Text(String(format: "%.2f", ratio))
                                         .foregroundColor(.red)
                                         .bold()

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject var model: CardinalModel
-    @AppStorage("apiKey") var apiKey: String = ""
     @State var search: String = ""
     @State var currentTerm: String = ""
     @State var searching: Bool = false
@@ -30,7 +29,7 @@ struct SearchView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal, 15)
-                if apiKey == "" {
+                if model.getAPIKey() == "" {
                     VStack {
                         Spacer()
                         Text("API Key Not Set")
@@ -97,7 +96,7 @@ struct SearchView: View {
     func performSearch() {
         Task {
             do {
-                if apiKey != "" && !searching {
+                if model.getAPIKey() != "" && !searching {
                     searching = true
                     currentTerm = search
                     switch model.selectionString {
@@ -125,6 +124,9 @@ struct SearchView: View {
                     }
                 }
             } catch {
+                #if DEBUG
+                print(error)
+                #endif
                 erroredOut = true
                 searching = false
             }

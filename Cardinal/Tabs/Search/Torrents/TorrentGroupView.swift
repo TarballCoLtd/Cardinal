@@ -49,7 +49,9 @@ struct TorrentGroupView: View {
     }
     static func release(_ torrent: Torrent) -> String {
         var ret: String = ""
-        ret += "\(torrent.remasteredYear) - "
+        if let remasteredYear = torrent.remasteredYear {
+            ret += "\(remasteredYear) - "
+        }
         if torrent.remasterCatalogueNumber != "" {
             ret += "\(torrent.remasterCatalogueNumber) / "
         }
