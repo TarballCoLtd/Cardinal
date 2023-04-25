@@ -1,5 +1,5 @@
 # Cardinal
-RED client for iOS (by tarball)
+RED and OPS client for iOS (by tarball)
 
 Pull requests are always welcome! A huge thanks to those of you who choose to contribute.
 
